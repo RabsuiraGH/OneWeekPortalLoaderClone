@@ -37,17 +37,17 @@ MonoBehaviour:
     colorHeaderTitle: {r: 0.8235295, g: 0.8235295, b: 0.8235295, a: 1}
     colorHeaderBackground: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   playmodeTheme:
-    colorRowEven: {r: 0.10388456, g: 0.10388456, b: 0.10388456, a: 1}
-    colorRowOdd: {r: 0.10773214, g: 0.10773214, b: 0.10773214, a: 1}
-    colorGrid: {r: 0.07887532, g: 0.07887532, b: 0.07887532, a: 1}
-    colorTreeView: {r: 0.20584534, g: 0.20584534, b: 0.20584534, a: 1}
-    colorLockIcon: {r: 0.34243432, g: 0.34243432, b: 0.34243432, a: 1}
-    tagColor: {r: 0.3462819, g: 0.3462819, b: 0.3462819, a: 1}
-    layerColor: {r: 0.3462819, g: 0.3462819, b: 0.3462819, a: 1}
-    comSelBGColor: {r: 0.490566, g: 0.07887532, b: 0.07887532, a: 0.5529412}
-    selectionColor: {r: 0.08464668, g: 0.17891231, b: 0.2597114, a: 1}
-    colorHeaderTitle: {r: 0.40399554, g: 0.40399554, b: 0.40399554, a: 1}
-    colorHeaderBackground: {r: 0.2462449, g: 0.2462449, b: 0.2462449, a: 1}
+    colorRowEven: {r: 0.21176471, g: 0.16261931, b: 0.16371144, a: 1}
+    colorRowOdd: {r: 0.21960784, g: 0.16864224, b: 0.16977483, a: 1}
+    colorGrid: {r: 0.16078432, g: 0.12347022, b: 0.12429943, a: 1}
+    colorTreeView: {r: 0.41960785, g: 0.32222715, b: 0.3243912, a: 1}
+    colorLockIcon: {r: 0.69803923, g: 0.53604144, b: 0.53964144, a: 1}
+    tagColor: {r: 0.7058824, g: 0.54206437, b: 0.5457048, a: 1}
+    layerColor: {r: 0.7058824, g: 0.54206437, b: 0.5457048, a: 1}
+    comSelBGColor: {r: 1, g: 0.12347022, b: 0.12429943, a: 0.5529412}
+    selectionColor: {r: 0.17254902, g: 0.28006658, b: 0.4092786, a: 1}
+    colorHeaderTitle: {r: 0.8235295, g: 0.63240844, b: 0.6366556, a: 1}
+    colorHeaderBackground: {r: 0.5019608, g: 0.385468, b: 0.38805676, a: 1}
   activeHierarchy: 1
   displayCustomObjectIcon: 1
   displayTreeView: 1
@@ -71,9 +71,39 @@ MonoBehaviour:
   applyStaticTargetAndChild: 1
   applyTagTargetAndChild: 0
   applyLayerTargetAndChild: 1
-  separatorStartWith: --->
+  separatorStartWith: ->
   separatorDefaultTag: Untagged
   useInstantBackground: 1
-  instantBackgroundColors: []
+  instantBackgroundColors:
+  - active: 1
+    useStartWith: 0
+    useTag: 1
+    useLayer: 0
+    startWith: 
+    tag: Controller
+    layer:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    color: {r: 1, g: 0.3150943, b: 0.90114754, a: 0.2}
+  - active: 1
+    useStartWith: 0
+    useTag: 0
+    useLayer: 1
+    startWith: 
+    tag: 
+    layer:
+      serializedVersion: 2
+      m_Bits: 32
+    color: {r: 0, g: 1, b: 0.92499995, a: 0.050980393}
+  - active: 1
+    useStartWith: 0
+    useTag: 1
+    useLayer: 0
+    startWith: 
+    tag: Zenject
+    layer:
+      serializedVersion: 2
+      m_Bits: 0
+    color: {r: 0.123142004, g: 1, b: 0, a: 0.050980393}
   onlyDisplayWhileMouseEnter: 0
   contentDisplay: 1
