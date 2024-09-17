@@ -1,6 +1,9 @@
 using System.Threading.Tasks;
+using Core.EventSystem;
+using Core.EventSystem.Signals;
 using Core.Utility.DebugTool;
 using UnityEngine;
+using Zenject;
 
 namespace Core.Player.Movement
 {
@@ -14,12 +17,22 @@ namespace Core.Player.Movement
 
         [SerializeField] private DebugLogger _debugger = new();
 
+        [SerializeField] private EventBus _eventBus;
+
+        [Inject]
+        public void Construct(EventBus eventBus)
+        {
+            _eventBus = eventBus;
+        }
+
         public async void Move(Vector2 direction)
         {
             if (_isMoving)
                 return;
 
-            _debugger.Log(this, "MV");
+            _debugger.Log(this, "Movement performed");
+
+            _eventBus.Invoke(new PlayerMoveSignal());
 
             _isMoving = true;
             await MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, _moveTime);
