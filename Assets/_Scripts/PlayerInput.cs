@@ -22,16 +22,6 @@ namespace Core.Player.Input
             _baseInput = new();
         }
 
-        private void OnEnable()
-        {
-            _baseInput.Enable();
-        }
-
-        private void OnDisable()
-        {
-            _baseInput.Disable();
-        }
-
         private void Update()
         {
             PerformMovement(_baseInput.Gameplay.Movement.ReadValue<Vector2>());
@@ -56,6 +46,16 @@ namespace Core.Player.Input
             if (direction.x > 0) return Vector2.right;
 
             return Vector2.zero;
+        }
+
+        private void OnEnable()
+        {
+            _baseInput.Enable();
+        }
+
+        private void OnDisable()
+        {
+            _baseInput.Disable();
         }
     }
 }

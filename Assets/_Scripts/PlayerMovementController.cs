@@ -5,14 +5,11 @@ namespace Core.Player.Movement
 {
     public class PlayerMovementController : MonoBehaviour, IMoveable
     {
-        [SerializeField] private Vector2 _moveDirection;
+        [SerializeField] private float _moveTime = 0.5f;
 
-        [SerializeField] private float _moveTime;
-        [SerializeField] private float _moveTimeCounter;
+        [SerializeField] private Rigidbody2D _rigidBody = null;
 
-        [SerializeField] private Rigidbody2D _rigidBody;
-
-        [SerializeField] private bool _isMoving;
+        [SerializeField] private bool _isMoving = false;
 
         public async void Move(Vector2 direction)
         {
@@ -20,7 +17,7 @@ namespace Core.Player.Movement
                 return;
 
             _isMoving = true;
-            await MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, 0.5f);
+            await MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, _moveTime);
             _isMoving = false;
         }
 
@@ -41,10 +38,6 @@ namespace Core.Player.Movement
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
-        }
-
-        private void Update()
-        {
         }
     }
 }
