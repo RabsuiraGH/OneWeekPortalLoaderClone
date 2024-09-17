@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Core.EventSystem;
 using Core.EventSystem.Signals;
@@ -15,12 +16,14 @@ namespace Core.Player.Movement
 
         [SerializeField] private bool _isMoving = false;
 
-        [SerializeField] private DebugLogger _debugger = new();
+        [SerializeField] private DebugLogger _debuger = new();
 
         [SerializeField] private EventBus _eventBus;
 
 
         [SerializeField] private LayerMask _wallLayer;
+
+        private CancellationTokenSource _cancellationTokenSource;
 
         [Inject]
         public void Construct(EventBus eventBus)
@@ -38,12 +41,11 @@ namespace Core.Player.Movement
 
 
             _eventBus.Invoke(new PlayerMoveSignal());
-            _debugger.Log(this, "Movement performed");
+            _debuger.Log(this, "Movement performed");
 
-            _eventBus.Invoke(new PlayerMoveSignal());
 
             _isMoving = true;
-            await MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, _moveTime);
+            await MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, _moveTime, _cancellationTokenSource);
             _isMoving = false;
         }
 
@@ -52,18 +54,21 @@ namespace Core.Player.Movement
             Collider2D collider = Physics2D.OverlapCircle(_rigidBody.position + direction, 0.1f, _wallLayer);
 
             if (collider != null) 
-                _debugger.Log(collider, "Illegal move, wall object: ", collider.gameObject);
+                _debuger.Log(collider, "Illegal move, wall object: ", collider.gameObject);
 
             return collider == null;
         }
 
 
 
-        private async Task MoveOverTimeAsync(Vector3 from, Vector3 to, float duration)
+        private async Task MoveOverTimeAsync(Vector3 from, Vector3 to, float duration, CancellationTokenSource token)
         {
             float elapsedTime = 0;
             while (elapsedTime < duration)
             {
+                if(token.IsCancellationRequested)
+                    return;
+
                 transform.position = Vector3.Lerp(from, to, elapsedTime / duration);
                 elapsedTime += Time.deltaTime;
 
@@ -75,7 +80,14 @@ namespace Core.Player.Movement
 
         private void Awake()
         {
+            _cancellationTokenSource = new CancellationTokenSource();
             _rigidBody = GetComponent<Rigidbody2D>();
+        }
+
+        private void OnDestroy()
+        {
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
         }
     }
 }
