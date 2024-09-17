@@ -19,6 +19,9 @@ namespace Core.Player.Movement
 
         [SerializeField] private EventBus _eventBus;
 
+
+        [SerializeField] private LayerMask _wallLayer;
+
         [Inject]
         public void Construct(EventBus eventBus)
         {
@@ -30,6 +33,11 @@ namespace Core.Player.Movement
             if (_isMoving)
                 return;
 
+            if (!IsLegalMove(direction))
+                return;
+
+
+            _eventBus.Invoke(new PlayerMoveSignal());
             _debugger.Log(this, "Movement performed");
 
             _eventBus.Invoke(new PlayerMoveSignal());
@@ -38,6 +46,18 @@ namespace Core.Player.Movement
             await MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, _moveTime);
             _isMoving = false;
         }
+
+        public bool IsLegalMove(Vector2 direction)
+        {
+            Collider2D collider = Physics2D.OverlapCircle(_rigidBody.position + direction, 0.1f, _wallLayer);
+
+            if (collider != null) 
+                _debugger.Log(collider, "Illegal move, wall object: ", collider.gameObject);
+
+            return collider == null;
+        }
+
+
 
         private async Task MoveOverTimeAsync(Vector3 from, Vector3 to, float duration)
         {
