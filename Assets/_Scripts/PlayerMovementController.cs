@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Core.Utility.DebugTool;
 using UnityEngine;
 
 namespace Core.Player.Movement
@@ -11,10 +12,14 @@ namespace Core.Player.Movement
 
         [SerializeField] private bool _isMoving = false;
 
+        [SerializeField] private DebugLogger _debugger = new();
+
         public async void Move(Vector2 direction)
         {
             if (_isMoving)
                 return;
+
+            _debugger.Log(this, "MV");
 
             _isMoving = true;
             await MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, _moveTime);
