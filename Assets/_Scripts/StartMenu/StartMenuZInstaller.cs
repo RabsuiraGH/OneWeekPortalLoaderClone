@@ -7,18 +7,14 @@ namespace Core.StartMenu
 {
     public class StartMenuZInstaller : MonoInstaller
     {
-
         [SerializeField] private LevelsDataSO _levelDataSO;
 
         [SerializeField] private LevelButtonUI _levelButtonPrefab;
 
         public override void InstallBindings()
         {
-            Container.Bind<LevelsDataSO>().FromScriptableObject(_levelDataSO);
+            Container.Bind<LevelsDataSO>().FromInstance(_levelDataSO);
             Container.Bind<LevelButtonUI>().FromInstance(_levelButtonPrefab);
-
         }
-
-
     }
 }

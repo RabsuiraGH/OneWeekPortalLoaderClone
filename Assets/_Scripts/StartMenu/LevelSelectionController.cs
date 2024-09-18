@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Level;
 using Core.StartMenu;
 using UnityEngine;
@@ -26,11 +27,25 @@ namespace Core
         [ContextMenu(nameof(PrepareUI))]
         public void PrepareUI()
         {
-            foreach (var level in _levelDataSO.GetLevelList())
+            _levelButtons.Clear();
+            for (int i = 0; i < _levelsPanelUI.childCount; i++)
             {
-                var button = Instantiate(_levelButtonPrefab, _levelsPanelUI);
-                _levelButtons.Add(button);
+                DestroyImmediate(_levelsPanelUI.GetChild(i).gameObject);
             }
+
+            foreach (LevelData level in _levelDataSO.GetLevelList())
+            {
+                LevelButtonUI button = Instantiate(_levelButtonPrefab, _levelsPanelUI);
+                _levelButtons.Add(button);
+                button.OnClick += StartLevel;
+            }
+        }
+
+        private void StartLevel(Button button)
+        {
+            int index = _levelButtons.IndexOf(button);
+            LevelData l = _levelDataSO.GetLevelAt(index);
+            Debug.Log(($"{l.LevelName}"));
         }
     }
 }

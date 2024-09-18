@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelsDataSO
   m_EditorClassIdentifier: 
   _levels:
-  - <_levelName>k__BackingField: 1 level
-    <_levelScene>k__BackingField:
+  - <LevelName>k__BackingField: First level
+    <LevelScene>k__BackingField:
       m_SceneAsset: {fileID: 102900000, guid: 8010b87f652a8a7409fe85b0a5d8a623, type: 3}
       m_SceneName: Level1
