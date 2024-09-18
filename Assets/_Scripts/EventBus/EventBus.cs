@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Core.EventSystem
 {
-    public class EventBus : MonoBehaviour
+    public class EventBus
     {
         private Dictionary<string, List<CallbackWithPriority>> _signalCallbacks = new Dictionary<string, List<CallbackWithPriority>>();
 
