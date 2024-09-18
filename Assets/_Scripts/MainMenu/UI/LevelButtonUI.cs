@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Core.StartMenu
+namespace Core.MainMenu
 {
     public class LevelButtonUI : MonoBehaviour
     {

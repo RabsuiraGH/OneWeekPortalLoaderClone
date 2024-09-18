@@ -10,6 +10,7 @@ namespace Core.Level
 
         public LevelData GetLevelAt(int index)
         {
+            if(index >= _levels.Count || index < 0) return null;
             return _levels[index];
         }
 

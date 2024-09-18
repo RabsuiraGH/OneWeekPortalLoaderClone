@@ -1,19 +1,15 @@
 using Core.Level;
-using Core.StartMenu;
 using UnityEngine;
 using Zenject;
 
-namespace Core.StartMenu
+namespace Core.MainMenu
 {
-    public class StartMenuZInstaller : MonoInstaller
+    public class MainMenuZInstaller : MonoInstaller
     {
-        [SerializeField] private LevelsDataSO _levelDataSO;
-
         [SerializeField] private LevelButtonUI _levelButtonPrefab;
 
         public override void InstallBindings()
         {
-            Container.Bind<LevelsDataSO>().FromInstance(_levelDataSO);
             Container.Bind<LevelButtonUI>().FromInstance(_levelButtonPrefab);
         }
     }
