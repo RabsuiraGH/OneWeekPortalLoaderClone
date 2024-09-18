@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.EventSystem;
 using Core.Level;
 using Core.MainMenu.UI;
 using UnityEngine;
@@ -14,14 +16,19 @@ namespace Core.MainMenu.Controller
 
         [SerializeField] private LevelManager _levelManager;
 
+        [SerializeField] private EventBus _eventBus;
+
         [Inject]
-        public void Construct(LevelManager levelManager)
+        public void Construct(LevelManager levelManager, EventBus eventBus)
         {
             _levelManager = levelManager;
+            _eventBus = eventBus;
         }
 
         private void Awake()
         {
+            _eventBus.Subscribe<EscapeCommandUISignal>(EscapeButtonLogic);
+
             PrepareLevels();
             _startMenuPage.OnStartButtonClicked += SwitchToLevelSelectionMenu;
             _startMenuPage.OnExitButtonClicked += ExitGame;
@@ -30,11 +37,24 @@ namespace Core.MainMenu.Controller
             _levelSelectionMenuPage.OnLevelSelected += StartLevel;
         }
 
+
         [ContextMenu(nameof(PrepareLevels))]
         public void PrepareLevels()
         {
             IEnumerable<string> names = _levelManager.GetLevelsData().Select(level => level.LevelName);
             _levelSelectionMenuPage.PrepareUI(names);
+        }
+
+        public void EscapeButtonLogic(EscapeCommandUISignal signal)
+        {
+            if(_levelSelectionMenuPage.IsOpen())
+            {
+                SwitchToStartMenu();
+            }
+            else if(_startMenuPage.IsOpen())
+            {
+                ExitGame();
+            }
         }
 
         public void ExitGame()

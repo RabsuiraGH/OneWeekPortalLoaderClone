@@ -64,7 +64,10 @@ namespace Core.MainMenu.UI
             int index = _levelButtons.IndexOf(uI);
             OnLevelSelected?.Invoke(index);
         }
-
+        public bool IsOpen()
+        {
+            return _page.gameObject.activeSelf;
+        }
         public void Show()
         {
             _page.gameObject.SetActive(true);

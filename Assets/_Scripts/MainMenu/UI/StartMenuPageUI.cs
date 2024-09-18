@@ -20,7 +20,10 @@ namespace Core.MainMenu.UI
             _startButton.onClick.AddListener(() => OnStartButtonClicked?.Invoke());
             _exitButton.onClick.AddListener(() => OnExitButtonClicked?.Invoke());
         }
-
+        public bool IsOpen()
+        {
+            return _page.gameObject.activeSelf;
+        }
         public void Show()
         {
             _page.gameObject.SetActive(true);
