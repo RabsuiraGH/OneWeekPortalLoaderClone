@@ -28,7 +28,7 @@ namespace Core.UI.GlobalController
 
         private void OnEscapePressed(InputAction.CallbackContext context)
         {
-            _eventBus.Invoke(new EscapeCommandSignalUI());
+            _eventBus.Invoke(new EscapeCommandUISignal());
         }
 
         private void OnEnable()

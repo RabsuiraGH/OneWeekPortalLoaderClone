@@ -1,8 +1,9 @@
-using System;
+using Core.EventSystem;
 using SceneFieldTools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Core.IngameMenu
 {
@@ -15,10 +16,35 @@ namespace Core.IngameMenu
         [SerializeField] private Button _continueButton;
         [SerializeField] private Button _backToStartMenuButton;
 
+        [SerializeField] private EventBus _eventBus;
+
+        [Inject]
+        public void Construct(EventBus eventBus)
+        {
+            _eventBus = eventBus;
+        }
+
         private void Awake()
         {
             _continueButton.onClick.AddListener(HideMenu);
             _backToStartMenuButton.onClick.AddListener(BackToStartMenu);
+            _eventBus.Subscribe<EscapeCommandUISignal>(ToggleMenu);
+
+            if (_settingsMenu.gameObject.activeSelf)
+                HideMenu();
+        }
+
+        private void ToggleMenu(EscapeCommandUISignal signal)
+        {
+            if (_settingsMenu.gameObject.activeSelf)
+                HideMenu();
+            else
+                OpenMenu();
+        }
+
+        private void OpenMenu()
+        {
+            _settingsMenu.gameObject.SetActive(true);
         }
 
         private void BackToStartMenu()

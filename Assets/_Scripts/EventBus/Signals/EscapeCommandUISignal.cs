@@ -1,6 +1,6 @@
 namespace Core.EventSystem
 {
-    public class EscapeCommandSignalUI
+    public class EscapeCommandUISignal
     {
     }
 }

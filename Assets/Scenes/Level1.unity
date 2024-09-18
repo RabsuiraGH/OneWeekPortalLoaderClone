@@ -2457,7 +2457,6 @@ MonoBehaviour:
   _debuger:
     _enableDebug: 1
     _defaultFontSize: 12
-  _eventBus: {fileID: 0}
   _wallLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -4585,7 +4584,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _batteryCharges: 0
   _maximumBatteryCharges: 10
-  _eventBus: {fileID: 0}
   _isBatteeryLifted: 0
   _debuger:
     _enableDebug: 1
@@ -4616,7 +4614,6 @@ GameObject:
   - component: {fileID: 1495370428}
   - component: {fileID: 1495370427}
   - component: {fileID: 1495370426}
-  - component: {fileID: 1495370429}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Zenject
@@ -4652,7 +4649,6 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 1495370426}
-  - {fileID: 1495370429}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -4685,19 +4681,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1495370429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1495370425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 826a68a57ebe890439cafe51a1c35557, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _eventBus: {fileID: 0}
 --- !u!1 &1720453324
 GameObject:
   m_ObjectHideFlags: 0
@@ -4993,7 +4976,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collider: {fileID: 1576893813993522802}
   _playerTag: Player
-  _eventBus: {fileID: 0}
 --- !u!212 &7662432157187293403
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -18,11 +18,15 @@ namespace Core
 
         [SerializeField] private LevelsDataSO _levelDataSO;
 
+
+        [SerializeField] private LevelLoader _levelLoader;
+
         [Inject]
-        public void Construct(LevelsDataSO levelsData, LevelButtonUI levelButtonUI)
+        public void Construct(LevelsDataSO levelsData, LevelButtonUI levelButtonUI, LevelLoader levelLoader)
         {
             _levelDataSO = levelsData;
             _levelButtonPrefab = levelButtonUI;
+            _levelLoader = levelLoader;
         }
 
         [ContextMenu(nameof(PrepareUI))]
@@ -48,7 +52,8 @@ namespace Core
         {
             int index = _levelButtons.IndexOf(button);
             LevelData l = _levelDataSO.GetLevelAt(index);
-            SceneManager.LoadScene(l.LevelScene);
+            _levelLoader.LoadLevel(l);
+
         }
     }
 }

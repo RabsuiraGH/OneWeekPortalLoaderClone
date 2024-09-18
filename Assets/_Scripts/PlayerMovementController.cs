@@ -20,7 +20,6 @@ namespace Core.Player.Movement
 
         [SerializeField] private EventBus _eventBus;
 
-
         [SerializeField] private LayerMask _wallLayer;
 
         private CancellationTokenSource _cancellationTokenSource;
@@ -39,10 +38,8 @@ namespace Core.Player.Movement
             if (!IsLegalMove(direction))
                 return;
 
-
             _eventBus.Invoke(new PlayerMoveSignal());
             _debuger.Log(this, "Movement performed");
-
 
             _isMoving = true;
             await MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, _moveTime, _cancellationTokenSource);
@@ -53,20 +50,18 @@ namespace Core.Player.Movement
         {
             Collider2D collider = Physics2D.OverlapCircle(_rigidBody.position + direction, 0.1f, _wallLayer);
 
-            if (collider != null) 
+            if (collider != null)
                 _debuger.Log(collider, "Illegal move, wall object: ", collider.gameObject);
 
             return collider == null;
         }
-
-
 
         private async Task MoveOverTimeAsync(Vector3 from, Vector3 to, float duration, CancellationTokenSource token)
         {
             float elapsedTime = 0;
             while (elapsedTime < duration)
             {
-                if(token.IsCancellationRequested)
+                if (token.IsCancellationRequested)
                     return;
 
                 transform.position = Vector3.Lerp(from, to, elapsedTime / duration);
