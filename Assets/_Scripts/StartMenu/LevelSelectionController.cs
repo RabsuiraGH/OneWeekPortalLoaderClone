@@ -3,6 +3,7 @@ using System.Linq;
 using Core.Level;
 using Core.StartMenu;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
@@ -11,7 +12,7 @@ namespace Core
     public class LevelSelectionController : MonoBehaviour
     {
         [SerializeField] private RectTransform _levelsPanelUI;
-        [SerializeField] private List<Button> _levelButtons;
+        [SerializeField] private List<LevelButtonUI> _levelButtons;
 
         [SerializeField] private LevelButtonUI _levelButtonPrefab;
 
@@ -28,6 +29,7 @@ namespace Core
         public void PrepareUI()
         {
             _levelButtons.Clear();
+
             for (int i = 0; i < _levelsPanelUI.childCount; i++)
             {
                 DestroyImmediate(_levelsPanelUI.GetChild(i).gameObject);
@@ -36,16 +38,17 @@ namespace Core
             foreach (LevelData level in _levelDataSO.GetLevelList())
             {
                 LevelButtonUI button = Instantiate(_levelButtonPrefab, _levelsPanelUI);
+                button.PrepareButton(level.LevelName);
                 _levelButtons.Add(button);
                 button.OnClick += StartLevel;
             }
         }
 
-        private void StartLevel(Button button)
+        private void StartLevel(LevelButtonUI button)
         {
             int index = _levelButtons.IndexOf(button);
             LevelData l = _levelDataSO.GetLevelAt(index);
-            Debug.Log(($"{l.LevelName}"));
+            SceneManager.LoadScene(l.LevelScene);
         }
     }
 }

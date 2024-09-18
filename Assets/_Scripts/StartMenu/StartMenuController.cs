@@ -22,13 +22,6 @@ namespace Core.StartMenu
             _exitLevelSelectionButton.onClick.AddListener(OpenStartMenu);
         }
 
-        private void OnDisable()
-        {
-            _startButton.onClick.RemoveAllListeners();
-            _exitButton.onClick.RemoveAllListeners();
-            _exitLevelSelectionButton.onClick.RemoveAllListeners();
-        }
-
         private void OpenLevelSelection()
         {
             _startMenu.gameObject.SetActive(false);
@@ -50,6 +43,13 @@ namespace Core.StartMenu
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
+        }
+
+        private void OnDisable()
+        {
+            _startButton.onClick.RemoveAllListeners();
+            _exitButton.onClick.RemoveAllListeners();
+            _exitLevelSelectionButton.onClick.RemoveAllListeners();
         }
     }
 }

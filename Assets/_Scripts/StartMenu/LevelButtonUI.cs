@@ -1,16 +1,25 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Core.StartMenu
 {
-    public class LevelButtonUI : Button
+    public class LevelButtonUI : MonoBehaviour
     {
         public event Action<LevelButtonUI> OnClick;
 
-        protected override void Awake()
+        [SerializeField] private TextMeshProUGUI _levelText;
+        [SerializeField] private Button _button;
+
+        protected void Awake()
         {
-            onClick.AddListener(OnClickInvoke);
+            _button.onClick.AddListener(OnClickInvoke);
+        }
+
+        public void PrepareButton(string levelName)
+        {
+            _levelText.text = levelName;
         }
 
         public void OnClickInvoke()
@@ -18,9 +27,9 @@ namespace Core.StartMenu
             OnClick?.Invoke(this);
         }
 
-        protected override void OnDestroy()
+        protected void OnDestroy()
         {
-            onClick.RemoveAllListeners();
+            _button.onClick.RemoveAllListeners();
         }
     }
 }
