@@ -10,11 +10,11 @@ namespace Core.UI.GlobalController
 {
     public class GlobalInputController : MonoBehaviour
     {
-        [SerializeField] private BaseInput _baseInput;
+        [SerializeField] private BaseInput _baseInput = null;
 
-        [SerializeField] private EventBus _eventBus;
+        [SerializeField] private EventBus _eventBus = null;
 
-        [SerializeField] private DebugLogger _debugger;
+        [SerializeField] private DebugLogger _debugger = new();
 
         [Inject]
         public void Construct(EventBus eventBus, BaseInput baseInput)

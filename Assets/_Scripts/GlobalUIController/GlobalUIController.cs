@@ -8,9 +8,9 @@ namespace Core
 {
     public class GlobalUIController : MonoBehaviour
     {
-        [SerializeField] private EventBus _eventBus;
+        [SerializeField] private EventBus _eventBus = null;
 
-        [SerializeField] private DebugLogger _debugger;
+        [SerializeField] private DebugLogger _debugger = new();
 
         [Inject]
         public void Construct(EventBus eventBus)
