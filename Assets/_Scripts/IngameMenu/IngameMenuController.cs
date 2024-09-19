@@ -1,22 +1,18 @@
 using Core.EventSystem;
+using Core.IngameMenu.UI;
 using SceneFieldTools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Zenject;
 
 namespace Core.IngameMenu
 {
     public class IngameMenuController : MonoBehaviour
     {
-        [SerializeField] private SceneField _startMenuScene;
+        [SerializeField] private IngameManuPageUI _ingameMenuPage = null;
+        [SerializeField] private SceneField _startMenuScene = null;
 
-        [SerializeField] private RectTransform _settingsMenu;
-
-        [SerializeField] private Button _continueButton;
-        [SerializeField] private Button _backToStartMenuButton;
-
-        [SerializeField] private EventBus _eventBus;
+        [SerializeField] private EventBus _eventBus = null;
 
         [Inject]
         public void Construct(EventBus eventBus)
@@ -26,25 +22,14 @@ namespace Core.IngameMenu
 
         private void Awake()
         {
-            _continueButton.onClick.AddListener(HideMenu);
-            _backToStartMenuButton.onClick.AddListener(BackToStartMenu);
+            _ingameMenuPage.OnContinueButtonClicked += ContinueGame;
+            _ingameMenuPage.OnBackToStartMenuClicked += BackToStartMenu;
             _eventBus.Subscribe<EscapeCommandUISignal>(ToggleMenu);
-
-            if (_settingsMenu.gameObject.activeSelf)
-                HideMenu();
         }
 
-        private void ToggleMenu(EscapeCommandUISignal signal)
+        private void ContinueGame()
         {
-            if (_settingsMenu.gameObject.activeSelf)
-                HideMenu();
-            else
-                OpenMenu();
-        }
-
-        private void OpenMenu()
-        {
-            _settingsMenu.gameObject.SetActive(true);
+            _ingameMenuPage.HideMenu();
         }
 
         private void BackToStartMenu()
@@ -52,15 +37,18 @@ namespace Core.IngameMenu
             SceneManager.LoadScene(_startMenuScene);
         }
 
-        private void HideMenu()
+        private void ToggleMenu(EscapeCommandUISignal signal)
         {
-            _settingsMenu.gameObject.SetActive(false);
+            if (_ingameMenuPage.IsOpen())
+                _ingameMenuPage.HideMenu();
+            else
+                _ingameMenuPage.OpenMenu();
         }
 
         private void OnDestroy()
         {
-            _continueButton.onClick.RemoveAllListeners();
-            _backToStartMenuButton.onClick.RemoveAllListeners();
+            _ingameMenuPage.OnContinueButtonClicked -= ContinueGame;
+            _ingameMenuPage.OnBackToStartMenuClicked -= BackToStartMenu;
         }
     }
 }

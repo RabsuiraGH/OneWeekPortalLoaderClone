@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 71927518}
   - component: {fileID: 71927520}
   - component: {fileID: 71927519}
+  - component: {fileID: 71927521}
   m_Layer: 5
   m_Name: IngameMenu
   m_TagString: Untagged
@@ -202,6 +203,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71927517}
   m_CullTransparentMesh: 1
+--- !u!114 &71927521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71927517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ff1123e7da45e4d89044d45fbdba86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _page: {fileID: 71927518}
+  _continueButton: {fileID: 1100874982}
+  _backToStartMenuButton: {fileID: 1262293909}
 --- !u!1 &364239896
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,12 +464,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590bc03134e2c6349bdeeb267e9e4574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ingameMenuPage: {fileID: 71927521}
   _startMenuScene:
     m_SceneAsset: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
     m_SceneName: StartMenu
-  _settingsMenu: {fileID: 71927518}
-  _continueButton: {fileID: 1100874982}
-  _backToStartMenuButton: {fileID: 1262293909}
 --- !u!4 &606562500
 Transform:
   m_ObjectHideFlags: 0
@@ -737,7 +751,7 @@ GameObject:
   - component: {fileID: 1262293910}
   - component: {fileID: 1262293909}
   m_Layer: 5
-  m_Name: ExitInStartMenuButton
+  m_Name: BackToMainMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
