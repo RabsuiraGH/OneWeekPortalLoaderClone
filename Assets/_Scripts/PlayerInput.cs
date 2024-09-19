@@ -12,14 +12,14 @@ namespace Core.Player.Input
         [SerializeField] private IMoveable _player;
 
         [Inject]
-        public void Construct(IMoveable player)
+        public void Construct(IMoveable player, BaseInput baseInput)
         {
             _player = player;
+            _baseInput = baseInput;
         }
 
         private void Awake()
         {
-            _baseInput = new();
         }
 
         private void Update()

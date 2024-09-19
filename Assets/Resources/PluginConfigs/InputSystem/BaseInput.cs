@@ -140,11 +140,17 @@ namespace Core.Input
         {
             ""name"": ""UI"",
             ""id"": ""f1b7dce4-456a-4832-8dde-7d907cc4ef4b"",
+            ""actions"": [],
+            ""bindings"": []
+        },
+        {
+            ""name"": ""Global"",
+            ""id"": ""eb49001e-3f41-40d4-af8a-e250620f6ee2"",
             ""actions"": [
                 {
                     ""name"": ""Escape"",
                     ""type"": ""Button"",
-                    ""id"": ""8b52b2a2-4071-4a4c-a42f-35efdee39569"",
+                    ""id"": ""a0ce6ea4-e718-48e6-b114-e02ce49f3581"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -154,7 +160,7 @@ namespace Core.Input
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""d9362554-0ca8-4039-9002-9f43586d7c01"",
+                    ""id"": ""c0fe0bee-d570-4a85-9905-e0294c8bdc1f"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -175,7 +181,9 @@ namespace Core.Input
             m_Gameplay_Exit = m_Gameplay.FindAction("Exit", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-            m_UI_Escape = m_UI.FindAction("Escape", throwIfNotFound: true);
+            // Global
+            m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
+            m_Global_Escape = m_Global.FindAction("Escape", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -299,12 +307,10 @@ namespace Core.Input
         // UI
         private readonly InputActionMap m_UI;
         private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
-        private readonly InputAction m_UI_Escape;
         public struct UIActions
         {
             private @BaseInput m_Wrapper;
             public UIActions(@BaseInput wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Escape => m_Wrapper.m_UI_Escape;
             public InputActionMap Get() { return m_Wrapper.m_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -314,16 +320,10 @@ namespace Core.Input
             {
                 if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
-                @Escape.started += instance.OnEscape;
-                @Escape.performed += instance.OnEscape;
-                @Escape.canceled += instance.OnEscape;
             }
 
             private void UnregisterCallbacks(IUIActions instance)
             {
-                @Escape.started -= instance.OnEscape;
-                @Escape.performed -= instance.OnEscape;
-                @Escape.canceled -= instance.OnEscape;
             }
 
             public void RemoveCallbacks(IUIActions instance)
@@ -341,6 +341,52 @@ namespace Core.Input
             }
         }
         public UIActions @UI => new UIActions(this);
+
+        // Global
+        private readonly InputActionMap m_Global;
+        private List<IGlobalActions> m_GlobalActionsCallbackInterfaces = new List<IGlobalActions>();
+        private readonly InputAction m_Global_Escape;
+        public struct GlobalActions
+        {
+            private @BaseInput m_Wrapper;
+            public GlobalActions(@BaseInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Escape => m_Wrapper.m_Global_Escape;
+            public InputActionMap Get() { return m_Wrapper.m_Global; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(GlobalActions set) { return set.Get(); }
+            public void AddCallbacks(IGlobalActions instance)
+            {
+                if (instance == null || m_Wrapper.m_GlobalActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_GlobalActionsCallbackInterfaces.Add(instance);
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
+            }
+
+            private void UnregisterCallbacks(IGlobalActions instance)
+            {
+                @Escape.started -= instance.OnEscape;
+                @Escape.performed -= instance.OnEscape;
+                @Escape.canceled -= instance.OnEscape;
+            }
+
+            public void RemoveCallbacks(IGlobalActions instance)
+            {
+                if (m_Wrapper.m_GlobalActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IGlobalActions instance)
+            {
+                foreach (var item in m_Wrapper.m_GlobalActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_GlobalActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public GlobalActions @Global => new GlobalActions(this);
         public interface IGameplayActions
         {
             void OnMovement(InputAction.CallbackContext context);
@@ -348,6 +394,9 @@ namespace Core.Input
             void OnExit(InputAction.CallbackContext context);
         }
         public interface IUIActions
+        {
+        }
+        public interface IGlobalActions
         {
             void OnEscape(InputAction.CallbackContext context);
         }

@@ -116,11 +116,17 @@
         {
             "name": "UI",
             "id": "f1b7dce4-456a-4832-8dde-7d907cc4ef4b",
+            "actions": [],
+            "bindings": []
+        },
+        {
+            "name": "Global",
+            "id": "eb49001e-3f41-40d4-af8a-e250620f6ee2",
             "actions": [
                 {
                     "name": "Escape",
                     "type": "Button",
-                    "id": "8b52b2a2-4071-4a4c-a42f-35efdee39569",
+                    "id": "a0ce6ea4-e718-48e6-b114-e02ce49f3581",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -130,7 +136,7 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "d9362554-0ca8-4039-9002-9f43586d7c01",
+                    "id": "c0fe0bee-d570-4a85-9905-e0294c8bdc1f",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",

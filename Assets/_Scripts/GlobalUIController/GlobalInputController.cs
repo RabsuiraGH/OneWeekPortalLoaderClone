@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Core.UI.GlobalController
 {
-    public class GlobalUIController : MonoBehaviour
+    public class GlobalInputController : MonoBehaviour
     {
         [SerializeField] private BaseInput _baseInput;
 
@@ -23,7 +23,7 @@ namespace Core.UI.GlobalController
         {
             DontDestroyOnLoad(gameObject);
 
-            _baseInput.UI.Escape.performed += OnEscapePressed;
+            _baseInput.Global.Escape.performed += OnEscapePressed;
         }
 
         private void OnEscapePressed(InputAction.CallbackContext context)
