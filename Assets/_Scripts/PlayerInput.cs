@@ -47,15 +47,5 @@ namespace Core.Player.Input
 
             return Vector2.zero;
         }
-
-        private void OnEnable()
-        {
-            _baseInput.Enable();
-        }
-
-        private void OnDisable()
-        {
-            _baseInput.Disable();
-        }
     }
 }

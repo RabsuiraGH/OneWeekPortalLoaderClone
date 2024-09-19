@@ -116,8 +116,30 @@
         {
             "name": "UI",
             "id": "f1b7dce4-456a-4832-8dde-7d907cc4ef4b",
-            "actions": [],
-            "bindings": []
+            "actions": [
+                {
+                    "name": "Test",
+                    "type": "Button",
+                    "id": "b4baaae5-1a60-4d61-ae56-ab5d95262bd1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c7c2dadd-7601-4068-b1b8-a710317d9d5e",
+                    "path": "<Keyboard>/rightBracket",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         },
         {
             "name": "Global",

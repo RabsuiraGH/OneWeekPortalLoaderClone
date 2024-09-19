@@ -140,8 +140,30 @@ namespace Core.Input
         {
             ""name"": ""UI"",
             ""id"": ""f1b7dce4-456a-4832-8dde-7d907cc4ef4b"",
-            ""actions"": [],
-            ""bindings"": []
+            ""actions"": [
+                {
+                    ""name"": ""Test"",
+                    ""type"": ""Button"",
+                    ""id"": ""b4baaae5-1a60-4d61-ae56-ab5d95262bd1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c7c2dadd-7601-4068-b1b8-a710317d9d5e"",
+                    ""path"": ""<Keyboard>/rightBracket"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Test"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         },
         {
             ""name"": ""Global"",
@@ -181,6 +203,7 @@ namespace Core.Input
             m_Gameplay_Exit = m_Gameplay.FindAction("Exit", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+            m_UI_Test = m_UI.FindAction("Test", throwIfNotFound: true);
             // Global
             m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
             m_Global_Escape = m_Global.FindAction("Escape", throwIfNotFound: true);
@@ -307,10 +330,12 @@ namespace Core.Input
         // UI
         private readonly InputActionMap m_UI;
         private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+        private readonly InputAction m_UI_Test;
         public struct UIActions
         {
             private @BaseInput m_Wrapper;
             public UIActions(@BaseInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Test => m_Wrapper.m_UI_Test;
             public InputActionMap Get() { return m_Wrapper.m_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -320,10 +345,16 @@ namespace Core.Input
             {
                 if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+                @Test.started += instance.OnTest;
+                @Test.performed += instance.OnTest;
+                @Test.canceled += instance.OnTest;
             }
 
             private void UnregisterCallbacks(IUIActions instance)
             {
+                @Test.started -= instance.OnTest;
+                @Test.performed -= instance.OnTest;
+                @Test.canceled -= instance.OnTest;
             }
 
             public void RemoveCallbacks(IUIActions instance)
@@ -395,6 +426,7 @@ namespace Core.Input
         }
         public interface IUIActions
         {
+            void OnTest(InputAction.CallbackContext context);
         }
         public interface IGlobalActions
         {

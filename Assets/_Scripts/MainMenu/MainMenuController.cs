@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.EventSystem;
+using Core.EventSystem.Signals;
 using Core.Level;
 using Core.MainMenu.UI;
 using UnityEngine;
@@ -67,6 +68,7 @@ namespace Core.MainMenu.Controller
 
         private void StartLevel(int levelIndex)
         {
+            _eventBus.Invoke(new CloseCompletelyUISignal());
             _levelManager.LoadLevel(levelIndex);
         }
 
@@ -75,9 +77,11 @@ namespace Core.MainMenu.Controller
             if (_levelSelectionMenuPage.IsOpen())
             {
                 SwitchToStartMenu();
+                _eventBus.Invoke(new SwitchWidowUISignal());
             }
             else if (_startMenuPage.IsOpen())
             {
+                _eventBus.Invoke(new CloseCompletelyUISignal());
                 ExitGame();
             }
         }

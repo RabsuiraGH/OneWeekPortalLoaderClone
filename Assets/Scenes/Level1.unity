@@ -2455,7 +2455,7 @@ MonoBehaviour:
   _rigidBody: {fileID: 883205287}
   _isMoving: 0
   _debuger:
-    _enableDebug: 1
+    _enableDebug: 0
     _defaultFontSize: 12
   _wallLayer:
     serializedVersion: 2

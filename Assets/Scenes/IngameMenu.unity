@@ -465,9 +465,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ingameMenuPage: {fileID: 71927521}
-  _startMenuScene:
+  _mainMenuScene:
     m_SceneAsset: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
-    m_SceneName: StartMenu
+    m_SceneName: MainMenu
 --- !u!4 &606562500
 Transform:
   m_ObjectHideFlags: 0
