@@ -1,5 +1,4 @@
-﻿
-namespace Core.EventSystem
+﻿namespace Core.EventSystem
 {
     public class CallbackWithPriority
     {

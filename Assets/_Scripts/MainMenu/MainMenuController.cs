@@ -26,7 +26,7 @@ namespace Core.MainMenu.Controller
 
         private void Awake()
         {
-            _eventBus.Subscribe<EscapeCommandUISignal>(EscapeButtonLogic);
+            _eventBus.Subscribe<EscapeCommandSignal>(EscapeButtonLogic);
 
             PrepareLevels();
             _startMenuPage.OnStartButtonClicked += SwitchToLevelSelectionMenu;
@@ -70,7 +70,7 @@ namespace Core.MainMenu.Controller
             _levelManager.LoadLevel(levelIndex);
         }
 
-        public void EscapeButtonLogic(EscapeCommandUISignal signal)
+        public void EscapeButtonLogic(EscapeCommandSignal signal)
         {
             if (_levelSelectionMenuPage.IsOpen())
             {
@@ -84,7 +84,7 @@ namespace Core.MainMenu.Controller
 
         private void OnDestroy()
         {
-            _eventBus.Unsubscribe<EscapeCommandUISignal>(EscapeButtonLogic);
+            _eventBus.Unsubscribe<EscapeCommandSignal>(EscapeButtonLogic);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Core.IngameMenu
         {
             _ingameMenuPage.OnContinueButtonClicked += ContinueGame;
             _ingameMenuPage.OnBackToStartMenuClicked += BackToStartMenu;
-            _eventBus.Subscribe<EscapeCommandUISignal>(ToggleMenu);
+            _eventBus.Subscribe<EscapeCommandSignal>(ToggleMenu);
         }
 
         private void ContinueGame()
@@ -37,7 +37,7 @@ namespace Core.IngameMenu
             SceneManager.LoadScene(_startMenuScene);
         }
 
-        private void ToggleMenu(EscapeCommandUISignal signal)
+        private void ToggleMenu(EscapeCommandSignal signal)
         {
             if (_ingameMenuPage.IsOpen())
                 _ingameMenuPage.HideMenu();
