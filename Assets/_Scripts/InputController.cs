@@ -25,6 +25,34 @@ namespace Core.Input
             _eventBus.Subscribe<SwitchToGameplayInputSignal>(SwithToGameplayInput);
         }
 
+#if UNITY_EDITOR
+
+        private enum InputTypeDebug
+        {
+            Gameplay,
+            UI,
+        }
+
+        [EasyButtons.Button]
+        private void SwitchInput(InputTypeDebug type)
+        {
+            switch (type)
+            {
+                case InputTypeDebug.Gameplay:
+                    SwithToGameplayInput(null);
+                    break;
+
+                case InputTypeDebug.UI:
+                    SwitchToUIInput(null);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+#endif
+
         private void SwithToGameplayInput(SwitchToGameplayInputSignal signal)
         {
             _baseInput.Gameplay.Enable();

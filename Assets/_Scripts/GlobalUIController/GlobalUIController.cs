@@ -13,14 +13,14 @@ namespace Core.UI.GlobalController
         [SerializeField] private EventBus _eventBus;
 
         [Inject]
-        public void Construct(EventBus eventBus)
+        public void Construct(EventBus eventBus, BaseInput baseInput)
         {
             _eventBus = eventBus;
+            _baseInput = baseInput;
         }
 
         private void Awake()
         {
-            _baseInput = new();
             DontDestroyOnLoad(gameObject);
 
             _baseInput.UI.Escape.performed += OnEscapePressed;
