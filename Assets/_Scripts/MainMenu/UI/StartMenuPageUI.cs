@@ -11,19 +11,21 @@ namespace Core.MainMenu.UI
         [SerializeField] private Button _startButton = null;
         [SerializeField] private Button _exitButton = null;
 
-        public event Action OnStartButtonClicked;
+        public event Action OnStartButtonClicked = null;
 
-        public event Action OnExitButtonClicked;
+        public event Action OnExitButtonClicked = null;
 
         private void Awake()
         {
             _startButton.onClick.AddListener(() => OnStartButtonClicked?.Invoke());
             _exitButton.onClick.AddListener(() => OnExitButtonClicked?.Invoke());
         }
+
         public bool IsOpen()
         {
             return _page.gameObject.activeSelf;
         }
+
         public void Show()
         {
             _page.gameObject.SetActive(true);

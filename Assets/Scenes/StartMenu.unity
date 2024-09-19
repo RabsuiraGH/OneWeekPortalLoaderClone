@@ -1311,7 +1311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f825102164ef46d45b77c11706f94915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelDataSO: {fileID: 11400000, guid: 4d470a2cb03922b41a678b29f186d01a, type: 2}
   _levelButtonPrefab: {fileID: 2204098261194222812, guid: 639bdff0fb460fe41adb3cb60603892e, type: 3}
 --- !u!114 &1293876448
 MonoBehaviour:
@@ -1328,6 +1327,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 1293876447}
+  - {fileID: 1293876450}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:

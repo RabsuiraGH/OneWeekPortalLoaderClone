@@ -16,9 +16,9 @@ namespace Core.MainMenu.UI
         [SerializeField] private List<LevelButtonUI> _levelButtons = new();
         [SerializeField] private LevelButtonUI _levelButtonPrefab = null;
 
-        public event Action OnExitButtonClicked;
+        public event Action OnExitButtonClicked = null;
 
-        public event Action<int> OnLevelSelected;
+        public event Action<int> OnLevelSelected = null;
 
         [Inject]
         public void Construct(LevelButtonUI levelButtonPrefab)
@@ -29,6 +29,18 @@ namespace Core.MainMenu.UI
         private void Awake()
         {
             _exitButton.onClick.AddListener(() => OnExitButtonClicked?.Invoke());
+        }
+
+        public void PrepareUI(IEnumerable<string> levelNames)
+        {
+            ClearUI();
+            foreach (string levelName in levelNames)
+            {
+                LevelButtonUI button = Instantiate(_levelButtonPrefab, _levelsPage);
+                button.PrepareButton(levelName);
+                _levelButtons.Add(button);
+                button.OnClick += OnLevelButtonClicked;
+            }
         }
 
         public void ClearUI()
@@ -47,27 +59,17 @@ namespace Core.MainMenu.UI
             }
         }
 
-        public void PrepareUI(IEnumerable<string> levelNames)
-        {
-            ClearUI();
-            foreach (string levelName in levelNames)
-            {
-                LevelButtonUI button = Instantiate(_levelButtonPrefab, _levelsPage);
-                button.PrepareButton(levelName);
-                _levelButtons.Add(button);
-                button.OnClick += OnLevelButtonClicked;
-            }
-        }
-
         private void OnLevelButtonClicked(LevelButtonUI uI)
         {
             int index = _levelButtons.IndexOf(uI);
             OnLevelSelected?.Invoke(index);
         }
+
         public bool IsOpen()
         {
             return _page.gameObject.activeSelf;
         }
+
         public void Show()
         {
             _page.gameObject.SetActive(true);

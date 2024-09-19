@@ -3,14 +3,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Core.MainMenu
+namespace Core.MainMenu.UI
 {
     public class LevelButtonUI : MonoBehaviour
     {
         public event Action<LevelButtonUI> OnClick;
 
-        [SerializeField] private TextMeshProUGUI _levelText;
-        [SerializeField] private Button _button;
+        [SerializeField] private TextMeshProUGUI _levelText = null;
+        [SerializeField] private Button _button = null;
 
         protected void Awake()
         {

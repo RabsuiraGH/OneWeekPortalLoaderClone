@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.EventSystem;
@@ -11,12 +10,12 @@ namespace Core.MainMenu.Controller
 {
     public class MainMenuController : MonoBehaviour
     {
-        [SerializeField] private StartMenuPageUI _startMenuPage;
-        [SerializeField] private LevelSelectionPageUI _levelSelectionMenuPage;
+        [SerializeField] private StartMenuPageUI _startMenuPage = null;
+        [SerializeField] private LevelSelectionPageUI _levelSelectionMenuPage = null;
 
-        [SerializeField] private LevelManager _levelManager;
+        [SerializeField] private LevelManager _levelManager = null;
 
-        [SerializeField] private EventBus _eventBus;
+        [SerializeField] private EventBus _eventBus = null;
 
         [Inject]
         public void Construct(LevelManager levelManager, EventBus eventBus)
@@ -37,24 +36,16 @@ namespace Core.MainMenu.Controller
             _levelSelectionMenuPage.OnLevelSelected += StartLevel;
         }
 
-
-        [ContextMenu(nameof(PrepareLevels))]
-        public void PrepareLevels()
+        private void SwitchToStartMenu()
         {
-            IEnumerable<string> names = _levelManager.GetLevelsData().Select(level => level.LevelName);
-            _levelSelectionMenuPage.PrepareUI(names);
+            _levelSelectionMenuPage.Hide();
+            _startMenuPage.Show();
         }
 
-        public void EscapeButtonLogic(EscapeCommandUISignal signal)
+        private void SwitchToLevelSelectionMenu()
         {
-            if(_levelSelectionMenuPage.IsOpen())
-            {
-                SwitchToStartMenu();
-            }
-            else if(_startMenuPage.IsOpen())
-            {
-                ExitGame();
-            }
+            _levelSelectionMenuPage.Show();
+            _startMenuPage.Hide();
         }
 
         public void ExitGame()
@@ -67,21 +58,33 @@ namespace Core.MainMenu.Controller
 #endif
         }
 
-        private void SwitchToLevelSelectionMenu()
+        [ContextMenu(nameof(PrepareLevels))]
+        public void PrepareLevels()
         {
-            _levelSelectionMenuPage.Show();
-            _startMenuPage.Hide();
-        }
-
-        private void SwitchToStartMenu()
-        {
-            _levelSelectionMenuPage.Hide();
-            _startMenuPage.Show();
+            IEnumerable<string> names = _levelManager.GetLevelsData().Select(level => level.LevelName);
+            _levelSelectionMenuPage.PrepareUI(names);
         }
 
         private void StartLevel(int levelIndex)
         {
             _levelManager.LoadLevel(levelIndex);
+        }
+
+        public void EscapeButtonLogic(EscapeCommandUISignal signal)
+        {
+            if (_levelSelectionMenuPage.IsOpen())
+            {
+                SwitchToStartMenu();
+            }
+            else if (_startMenuPage.IsOpen())
+            {
+                ExitGame();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _eventBus.Unsubscribe<EscapeCommandUISignal>(EscapeButtonLogic);
         }
     }
 }
