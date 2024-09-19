@@ -6,6 +6,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
+#if UNITY_EDITOR
+
+using static Core.Utility.DebugTool.DebugColorOptions.HtmlColor;
+
+#endif
+
 namespace Core.UI.GlobalController
 {
     public class GlobalInputController : MonoBehaviour
@@ -87,6 +93,11 @@ namespace Core.UI.GlobalController
         }
 
 #if UNITY_EDITOR
+
+        private void Update()
+        {
+            _debugger.Log(this, ($"Innput State: Global: {(_baseInput.Global.enabled).Color(Bool)}  Gameplay: {(_baseInput.Gameplay.enabled).Color(Bool)}  UI: {(_baseInput.UI.enabled).Color(Bool)}"));
+        }
 
         private enum InputTypeDebug
         {
