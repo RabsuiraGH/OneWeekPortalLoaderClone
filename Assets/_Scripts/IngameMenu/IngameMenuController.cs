@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace Core.IngameMenu
+namespace Core.IngameMenu.Controller
 {
     public class IngameMenuController : MonoBehaviour
     {
