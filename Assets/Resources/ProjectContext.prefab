@@ -95,6 +95,9 @@ MonoBehaviour:
   _ingameMenuScene:
     m_SceneAsset: {fileID: 102900000, guid: e2ce3be1a122fba4da35fba59f4e626a, type: 3}
     m_SceneName: IngameMenu
+  _levelCompletedMenuScene:
+    m_SceneAsset: {fileID: 102900000, guid: 6a3c7250c472d6a4dbafa62f87c41bd9, type: 3}
+    m_SceneName: LevelCompletedMenu
   _levelsData: {fileID: 11400000, guid: 4d470a2cb03922b41a678b29f186d01a, type: 2}
 --- !u!114 &8260510659729012195
 MonoBehaviour:
@@ -120,6 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb4fe3fe85f0094b8bdc08c2e67dbea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugger:
+    _enableDebug: 1
+    _defaultFontSize: 12
 --- !u!114 &2622783878460346780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,3 +138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e67163af308888469037af8f04eded9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugger:
+    _enableDebug: 1
+    _defaultFontSize: 12

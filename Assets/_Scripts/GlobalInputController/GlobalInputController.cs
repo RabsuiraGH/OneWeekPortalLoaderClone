@@ -33,12 +33,15 @@ namespace Core.UI.GlobalController
         {
             DontDestroyOnLoad(gameObject);
 
-            ApplyStartInputOptions();
-
             _baseInput.Global.Escape.performed += OnEscapePressed;
 
             _eventBus.Subscribe<SwitchToUIInputSignal>(SwitchToUIInput);
             _eventBus.Subscribe<SwitchToGameplayInputSignal>(SwithToGameplayInput);
+        }
+
+        private void Start()
+        {
+            ApplyStartInputOptions();
         }
 
         [EasyButtons.Button]

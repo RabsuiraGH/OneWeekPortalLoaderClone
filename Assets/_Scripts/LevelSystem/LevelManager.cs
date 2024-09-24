@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Core.EventSystem;
 using SceneFieldTools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,15 +11,21 @@ namespace Core.Level
     [Serializable]
     public class LevelManager
     {
-        [Inject(Id = "IngameMenu")]
+        [Inject(Id = Zenject.ZenjectIDs.IngameMenu)]
         [SerializeField] private SceneField _ingameMenuScene = null;
+
+        [Inject(Id = Zenject.ZenjectIDs.LevelCompletedMenu)]
+        [SerializeField] private SceneField _levelCompletedMenu = null;
 
         [SerializeField] private LevelsDataSO _levelsData;
 
+        [SerializeField] private EventBus _eventBus;
+
         [Inject]
-        public LevelManager(LevelsDataSO levelsData)
+        public LevelManager(LevelsDataSO levelsData, EventBus eventBus)
         {
             _levelsData = levelsData;
+            _eventBus = eventBus;
         }
 
         public IEnumerable<LevelData> GetLevelsData()
@@ -35,6 +42,7 @@ namespace Core.Level
         {
             SceneManager.LoadScene(level.LevelScene);
             SceneManager.LoadScene(_ingameMenuScene, LoadSceneMode.Additive);
+            SceneManager.LoadScene(_levelCompletedMenu, LoadSceneMode.Additive);
         }
     }
 }
