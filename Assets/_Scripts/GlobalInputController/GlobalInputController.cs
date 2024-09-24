@@ -48,10 +48,10 @@ namespace Core.UI.GlobalController
         private void ApplyStartInputOptions()
         {
             _baseInput.Enable();
-
             _baseInput.Global.Enable();
             _baseInput.Gameplay.Disable();
             _baseInput.UI.Enable();
+
         }
 
         private void OnEscapePressed(InputAction.CallbackContext context)
