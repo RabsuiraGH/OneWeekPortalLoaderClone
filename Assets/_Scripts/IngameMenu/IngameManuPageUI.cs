@@ -19,9 +19,6 @@ namespace Core.IngameMenu.UI
         {
             _continueButton.onClick.AddListener(() => OnContinueButtonClicked?.Invoke());
             _backToStartMenuButton.onClick.AddListener(() => OnBackToStartMenuClicked?.Invoke());
-
-            if (IsOpen())
-                HideMenu();
         }
 
         public bool IsOpen()

@@ -26,7 +26,10 @@ namespace Core.IngameMenu.Controller
             _ingameMenuPage.OnContinueButtonClicked += ContinueGame;
             _ingameMenuPage.OnBackToStartMenuClicked += BackToStartMenu;
             _eventBus.Subscribe<EscapeCommandSignal>(ToggleMenu);
+        }
 
+        private void Start()
+        {
             if (_ingameMenuPage.IsOpen())
                 _ingameMenuPage.HideMenu();
         }

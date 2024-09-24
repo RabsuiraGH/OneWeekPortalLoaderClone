@@ -27,6 +27,12 @@ namespace Core.LevelCompletedMenu.Controller
             _levelCompletedMenuPage.OnBackToStartMenuClicked += BackToStartMenu;
         }
 
+        private void Start()
+        {
+            if (_levelCompletedMenuPage.IsOpen())
+                _levelCompletedMenuPage.HideMenu();
+        }
+
         private void StartNextLevel()
         {
             _eventBus.Invoke(new CloseCompletelyUISignal());
