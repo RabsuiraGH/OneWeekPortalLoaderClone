@@ -2,26 +2,23 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Core.LevelCompletedMenu.UI
+namespace Core.LevelStateMenu.UI
 {
-    public class LevelCompletedMenuPageUI : MonoBehaviour
+    public class LevelStateFailurePageUI : MonoBehaviour
     {
         [SerializeField] private RectTransform _page;
 
-        [SerializeField] private Button _nextLevelButton;
+        [SerializeField] private Button _restartLevelButton;
         [SerializeField] private Button _backToStartMenuButton;
 
-        public event Action OnNextLevelButtonClicked;
+        public event Action OnRestartLevelButtonClicked;
 
         public event Action OnBackToStartMenuClicked;
 
         private void Awake()
         {
-            _nextLevelButton.onClick.AddListener(() => OnNextLevelButtonClicked?.Invoke());
+            _restartLevelButton.onClick.AddListener(() => OnRestartLevelButtonClicked?.Invoke());
             _backToStartMenuButton.onClick.AddListener(() => OnBackToStartMenuClicked?.Invoke());
-
-            if (IsOpen())
-                HideMenu();
         }
 
         public bool IsOpen()
@@ -41,7 +38,7 @@ namespace Core.LevelCompletedMenu.UI
 
         private void OnDestroy()
         {
-            _nextLevelButton.onClick.RemoveAllListeners();
+            _restartLevelButton.onClick.RemoveAllListeners();
             _backToStartMenuButton.onClick.RemoveAllListeners();
         }
     }
