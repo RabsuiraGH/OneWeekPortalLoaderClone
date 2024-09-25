@@ -12,7 +12,6 @@ namespace Core.Utility.DebugTool
 
         [SerializeField] private int _defaultFontSize = 12;
 
-
         private void DoLog(Action<string, Object> logFunction, string prefix, Object myObj, int size, params object[] message)
         {
 #if UNITY_EDITOR
@@ -23,8 +22,8 @@ namespace Core.Utility.DebugTool
 #endif
         }
 
-
         #region FULL LOG
+
         public void Log(Object myObj, int size, params object[] message)
         {
             DoLog(Debug.Log, "", myObj, size, message);
@@ -44,7 +43,8 @@ namespace Core.Utility.DebugTool
         {
             DoLog(Debug.Log, "☻".Color("green"), myObj, size, message);
         }
-        #endregion
+
+        #endregion FULL LOG
 
         #region SHORT LOG
 
@@ -67,7 +67,7 @@ namespace Core.Utility.DebugTool
         {
             DoLog(Debug.Log, "☻".Color("green"), myObj, _defaultFontSize, message);
         }
-        #endregion
 
+        #endregion SHORT LOG
     }
 }

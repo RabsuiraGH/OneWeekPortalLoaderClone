@@ -31,21 +31,21 @@ namespace Core.Utility.DebugTool
 
         public static Dictionary<HtmlColor, string> Colors = new Dictionary<HtmlColor, string>
         {
-            { HtmlColor.Red,     "red" },
-            { HtmlColor.White,   "white" },
-            { HtmlColor.Black,   "black" },
-            { HtmlColor.Green,   "green" },
-            { HtmlColor.Blue,    "blue" },
-            { HtmlColor.Yellow,  "yellow" },
-            { HtmlColor.Gray,    "gray" },
-            { HtmlColor.Cyan,    "cyan" },
-            { HtmlColor.Magenta, "magenta" },
-            { HtmlColor.Orange,  "orange" },
-            { HtmlColor.Pink,    "pink" },
-            { HtmlColor.Brown,   "brown" },
-            { HtmlColor.Violet,  "violet" },
-            { HtmlColor.Purple,  "purple" },
-            { HtmlColor.Lime,    "lime" },
+            { HtmlColor.Red,     "Red" },
+            { HtmlColor.White,   "White" },
+            { HtmlColor.Black,   "Black" },
+            { HtmlColor.Green,   "Green" },
+            { HtmlColor.Blue,    "Blue" },
+            { HtmlColor.Yellow,  "Yellow" },
+            { HtmlColor.Gray,    "Gray" },
+            { HtmlColor.Cyan,    "Cyan" },
+            { HtmlColor.Magenta, "Magenta" },
+            { HtmlColor.Orange,  "Orange" },
+            { HtmlColor.Pink,    "Pink" },
+            { HtmlColor.Brown,   "Brown" },
+            { HtmlColor.Violet,  "Violet" },
+            { HtmlColor.Purple,  "Purple" },
+            { HtmlColor.Lime,    "Lime" },
         };
     }
 }

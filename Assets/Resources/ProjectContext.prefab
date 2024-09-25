@@ -124,6 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb4fe3fe85f0094b8bdc08c2e67dbea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _eventBus:
+    _debugger:
+      _enableDebug: 1
+      _defaultFontSize: 12
   _debugger:
     _enableDebug: 1
     _defaultFontSize: 12
@@ -139,6 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e67163af308888469037af8f04eded9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _eventBus:
+    _debugger:
+      _enableDebug: 1
+      _defaultFontSize: 12
   _debugger:
     _enableDebug: 1
     _defaultFontSize: 12

@@ -16,7 +16,6 @@ namespace Core
 
         [SerializeField] private bool _isBatteeryLifted = false;
 
-
         [SerializeField] private DebugLogger _debuger = new();
 
         [Inject]
@@ -55,8 +54,8 @@ namespace Core
         private void OnDestroy()
         {
             _eventBus.Unsubscribe<BatteryLiftSignal>(OnBatteryLift);
-            _eventBus.Unsubscribe<PlayerMoveSignal>(OnPlayerMove);
-
+            if (_isBatteeryLifted)
+                _eventBus.Unsubscribe<PlayerMoveSignal>(OnPlayerMove);
         }
     }
 }

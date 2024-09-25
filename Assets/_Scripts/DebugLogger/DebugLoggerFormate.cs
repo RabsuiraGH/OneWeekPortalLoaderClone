@@ -23,17 +23,16 @@ namespace Core.Utility.DebugTool
                 throw new System.Exception("Cannot convert object to string!");
             }
 
-            if (color is HtmlColor.Bool && myStr is bool result)
+            if (color is HtmlColor.Bool)
             {
-                color = result ? HtmlColor.Green : HtmlColor.Red;
-            }
-            else
-            {
-                return myStr.ToString();
+                if (myStr is bool result)
+                {
+                    color = result ? HtmlColor.Green : HtmlColor.Red;
+                }
+                else color = HtmlColor.Gray;
             }
 
             string resultColor = Colors[color];
-
             return $"<color={resultColor}>{myStr}</color>";
         }
 
