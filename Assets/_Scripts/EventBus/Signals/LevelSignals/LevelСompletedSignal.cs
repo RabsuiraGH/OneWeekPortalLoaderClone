@@ -1,6 +1,6 @@
 namespace Core.EventSystem.Signals
 {
-    public class LevelcompletedSignal
+    public class Level—ompletedSignal
     {
     }
 }
