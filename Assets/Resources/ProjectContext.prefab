@@ -98,7 +98,7 @@ MonoBehaviour:
     m_SceneName: IngameMenu
   _levelCompletedMenuScene:
     m_SceneAsset: {fileID: 102900000, guid: 6a3c7250c472d6a4dbafa62f87c41bd9, type: 3}
-    m_SceneName: LevelCompletedMenu
+    m_SceneName: LevelStateMenu
   _levelsData: {fileID: 11400000, guid: 4d470a2cb03922b41a678b29f186d01a, type: 2}
 --- !u!114 &8260510659729012195
 MonoBehaviour:

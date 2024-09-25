@@ -14,7 +14,7 @@ namespace Core.Level
             return _levels[index];
         }
 
-        public IEnumerable<LevelData> GetLevelList()
+        public List<LevelData> GetLevelList()
         {
             return new List<LevelData>(_levels);
         }

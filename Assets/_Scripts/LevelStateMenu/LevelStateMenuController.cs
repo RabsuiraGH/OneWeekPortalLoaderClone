@@ -1,4 +1,3 @@
-using System;
 using Core.EventSystem;
 using Core.EventSystem.Signals;
 using Core.LevelStateMenu.UI;
@@ -28,6 +27,9 @@ namespace Core.LevelStateMenu.Controller
 
         private void Awake()
         {
+            _eventBus.Subscribe<Level—ompletedSignal>(OpenCompletedPage);
+            _eventBus.Subscribe<LevelFailureSignal>(OpenFailurePage);
+
             _levelCompletedPage.OnNextLevelButtonClicked += StartNextLevel;
             _levelCompletedPage.OnBackToStartMenuClicked += BackToStartMenu;
 
@@ -52,7 +54,7 @@ namespace Core.LevelStateMenu.Controller
             _eventBus.Invoke(new CloseCompletelyUISignal());
             _levelFailurePage?.HideMenu();
 
-            // TODO: Restart current level
+            _eventBus.Invoke(new LevelResetSignal());
         }
 
         private void StartNextLevel()
@@ -60,10 +62,21 @@ namespace Core.LevelStateMenu.Controller
             _eventBus.Invoke(new CloseCompletelyUISignal());
             _levelCompletedPage.HideMenu();
 
-            //TODO: Start next level logic
+            _eventBus.Invoke(new LevelLoadNextSignal());
         }
 
-        //TODO: Create open logic
+        private void OpenCompletedPage(Level—ompletedSignal signal)
+        {
+            _levelCompletedPage.OpenMenu();
+            _eventBus.Invoke(new OpenCompletelyUISignal());
+        }
+
+        private void OpenFailurePage(LevelFailureSignal signal)
+        {
+            _levelFailurePage.OpenMenu();
+            _eventBus.Invoke(new OpenCompletelyUISignal());
+        }
+
         private void BackToStartMenu()
         {
             _eventBus.Invoke(new OpenCompletelyUISignal());
@@ -72,6 +85,9 @@ namespace Core.LevelStateMenu.Controller
 
         private void OnDestroy()
         {
+            _eventBus.Unsubscribe<Level—ompletedSignal>(OpenCompletedPage);
+            _eventBus.Unsubscribe<LevelFailureSignal>(OpenFailurePage);
+
             _levelCompletedPage.OnNextLevelButtonClicked -= StartNextLevel;
             _levelCompletedPage.OnBackToStartMenuClicked -= BackToStartMenu;
 

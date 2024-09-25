@@ -69,7 +69,7 @@ namespace Core.MainMenu.Controller
         private void StartLevel(int levelIndex)
         {
             _eventBus.Invoke(new CloseCompletelyUISignal());
-            _levelManager.LoadLevel(levelIndex);
+            _eventBus.Invoke(new LevelLoadSignal(levelIndex));
         }
 
         public void EscapeButtonLogic(EscapeCommandSignal signal)

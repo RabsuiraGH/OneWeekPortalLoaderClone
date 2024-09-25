@@ -1,10 +1,10 @@
 namespace Core.EventSystem.Signals
 {
-    public class Level—ompletedSignal
+    public class LevelLoadSignal
     {
         public readonly int LevelIndex;
 
-        public Level—ompletedSignal(int levelIndex)
+        public LevelLoadSignal(int levelIndex)
         {
             LevelIndex = levelIndex;
         }
