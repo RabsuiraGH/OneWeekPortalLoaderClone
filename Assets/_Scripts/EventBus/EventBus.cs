@@ -4,9 +4,7 @@ using System.Linq;
 using Core.Utility.DebugTool;
 using UnityEngine;
 
-#if UNITY_EDITOR
-
-#endif
+using static Core.Utility.DebugTool.DebugColorOptions.HtmlColor;
 
 namespace Core.EventSystem
 {
@@ -29,8 +27,8 @@ namespace Core.EventSystem
                 _signalCallbacks.Add(key, new List<CallbackWithPriority>() { new(priority, callback) });
             }
 
-            _debugger.Log(new(), ($"Action {(callback).ToString().Color(DebugColorOptions.HtmlColor.Green)} was subscribed " +
-                                                    $"to signal {(typeof(T).Name).Color(DebugColorOptions.HtmlColor.Green)}"));
+            _debugger.Log(new(), $"Action {(callback).ToString().Color(Green)} was subscribed " +
+                                                    $"to signal {(typeof(T).Name).Color(Green)}");
 
             _signalCallbacks[key] = _signalCallbacks[key].OrderByDescending(x => x.Priority).ToList();
         }
@@ -41,7 +39,7 @@ namespace Core.EventSystem
 
             if (_signalCallbacks.ContainsKey(key))
             {
-                _debugger.Log(new(), $"Signal {(signal).Color(DebugColorOptions.HtmlColor.Green)} was Invoked");
+                _debugger.Log(new(), $"Signal {(signal).Color(Green)} was Invoked");
 
                 foreach (var obj in _signalCallbacks[key])
                 {
@@ -61,8 +59,8 @@ namespace Core.EventSystem
                 if (callbackToDelete != null)
                 {
                     _signalCallbacks[key].Remove(callbackToDelete);
-                    _debugger.Log(new(), $"Action {(callback).Color(DebugColorOptions.HtmlColor.Red)} was unsubscribed " +
-                                                    $"to signal {(typeof(T).Name).Color(DebugColorOptions.HtmlColor.Red)}");
+                    _debugger.Log(new(), $"Action {(callback).Color(Red)} was unsubscribed " +
+                                                    $"to signal {(typeof(T).Name).Color(Red)}");
                 }
             }
             else
@@ -79,7 +77,7 @@ namespace Core.EventSystem
             {
                 _signalCallbacks.Remove(key);
 
-                _debugger.Log(new(), $"Signal {key} was absolutely unsubscribed!".Color(DebugColorOptions.HtmlColor.Red));
+                _debugger.Log(new(), $"Signal {key} was absolutely unsubscribed!".Color(Red));
             }
             else
             {

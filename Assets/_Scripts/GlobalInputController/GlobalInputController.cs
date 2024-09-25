@@ -6,11 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-#if UNITY_EDITOR
-
 using static Core.Utility.DebugTool.DebugColorOptions.HtmlColor;
-
-#endif
 
 namespace Core.UI.GlobalController
 {
