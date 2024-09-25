@@ -16,6 +16,8 @@ namespace Core
 
         [SerializeField] private bool _isBatteeryLifted = false;
 
+        [SerializeField] private bool _lockFailure = false;
+
         [SerializeField] private DebugLogger _debuger = new();
 
         [Inject]
@@ -28,15 +30,32 @@ namespace Core
         {
             _batteryCharges = _maximumBatteryCharges;
             _eventBus.Subscribe<BatteryLiftSignal>(OnBatteryLift);
+            _eventBus.Subscribe<LevelCompletedSignal>(LockFailure);
+            _eventBus.Subscribe<AccumulatorLiftSignal>(ChargeBattery);
+        }
+
+        private void ChargeBattery(AccumulatorLiftSignal signal)
+        {
+            _batteryCharges += signal.Charge;
+
+            if(_batteryCharges > _maximumBatteryCharges)
+            {
+                _batteryCharges = _maximumBatteryCharges;
+            }    
+        }
+
+        private void LockFailure(LevelCompletedSignal signal)
+        {
+            _lockFailure = true;
         }
 
         private void OnBatteryLift(BatteryLiftSignal batteryLiftSignal)
         {
             _isBatteeryLifted = true;
-            _eventBus.Subscribe<PlayerMoveSignal>(OnPlayerMove);
+            _eventBus.Subscribe<PlayerMoveEndSignal>(OnPlayerMove);
         }
 
-        private void OnPlayerMove(PlayerMoveSignal playerMoveSignal)
+        private void OnPlayerMove(PlayerMoveEndSignal playerMoveSignal)
         {
             if (!_isBatteeryLifted) return;
 
@@ -47,7 +66,10 @@ namespace Core
             {
                 _debuger.Log(this, $"Battery have no charges!");
 
-                _eventBus.Invoke(new GameOverSignal());
+                if (!_lockFailure)
+                {
+                    _eventBus.Invoke(new GameOverSignal());
+                }
             }
         }
 
@@ -55,7 +77,8 @@ namespace Core
         {
             _eventBus.Unsubscribe<BatteryLiftSignal>(OnBatteryLift);
             if (_isBatteeryLifted)
-                _eventBus.Unsubscribe<PlayerMoveSignal>(OnPlayerMove);
+                _eventBus.Unsubscribe<PlayerMoveEndSignal>(OnPlayerMove);
+            _eventBus.Unsubscribe<AccumulatorLiftSignal>(ChargeBattery);
         }
     }
 }

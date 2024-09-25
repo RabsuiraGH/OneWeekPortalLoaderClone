@@ -27,7 +27,7 @@ namespace Core.LevelStateMenu.Controller
 
         private void Awake()
         {
-            _eventBus.Subscribe<Level—ompletedSignal>(OpenCompletedPage);
+            _eventBus.Subscribe<LevelCompletedSignal>(OpenCompletedPage);
             _eventBus.Subscribe<LevelFailureSignal>(OpenFailurePage);
 
             _levelCompletedPage.OnNextLevelButtonClicked += StartNextLevel;
@@ -65,7 +65,7 @@ namespace Core.LevelStateMenu.Controller
             _eventBus.Invoke(new LevelLoadNextSignal());
         }
 
-        private void OpenCompletedPage(Level—ompletedSignal signal)
+        private void OpenCompletedPage(LevelCompletedSignal signal)
         {
             _levelCompletedPage.OpenMenu();
             ToggleCamera(true);
@@ -92,7 +92,7 @@ namespace Core.LevelStateMenu.Controller
 
         private void OnDestroy()
         {
-            _eventBus.Unsubscribe<Level—ompletedSignal>(OpenCompletedPage);
+            _eventBus.Unsubscribe<LevelCompletedSignal>(OpenCompletedPage);
             _eventBus.Unsubscribe<LevelFailureSignal>(OpenFailurePage);
 
             _levelCompletedPage.OnNextLevelButtonClicked -= StartNextLevel;

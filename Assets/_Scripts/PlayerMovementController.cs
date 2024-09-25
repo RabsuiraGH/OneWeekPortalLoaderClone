@@ -38,12 +38,12 @@ namespace Core.Player.Movement
             if (!IsLegalMove(direction))
                 return;
 
-            _eventBus.Invoke(new PlayerMoveSignal());
             _debuger.Log(this, "Movement performed");
 
             _isMoving = true;
             await MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, _moveTime, _cancellationTokenSource);
             _isMoving = false;
+            _eventBus.Invoke(new PlayerMoveEndSignal());
         }
 
         public bool IsLegalMove(Vector2 direction)
