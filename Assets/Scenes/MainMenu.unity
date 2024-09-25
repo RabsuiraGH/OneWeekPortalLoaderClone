@@ -1291,7 +1291,6 @@ GameObject:
   - component: {fileID: 1293876449}
   - component: {fileID: 1293876448}
   - component: {fileID: 1293876447}
-  - component: {fileID: 1293876450}
   m_Layer: 0
   m_Name: MainMenuSceneContext
   m_TagString: Zenject
@@ -1327,7 +1326,6 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 1293876447}
-  - {fileID: 1293876450}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -1360,25 +1358,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1293876450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1293876446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 885239b877568674d89b0355805e2011, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ingameMenuScene:
-    m_SceneAsset: {fileID: 102900000, guid: e2ce3be1a122fba4da35fba59f4e626a, type: 3}
-    m_SceneName: IngameMenu
-  _levelCompletedMenuScene:
-    m_SceneAsset: {fileID: 102900000, guid: 6a3c7250c472d6a4dbafa62f87c41bd9, type: 3}
-    m_SceneName: LevelCompletedMenu
-  _levelsData: {fileID: 11400000, guid: 4d470a2cb03922b41a678b29f186d01a, type: 2}
 --- !u!1 &1401199405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,6 +1411,12 @@ MonoBehaviour:
     _levelCompletedMenu:
       m_SceneAsset: {fileID: 0}
       m_SceneName: 
+    _currentLevel:
+      _levelDevName: 
+      <LevelName>k__BackingField: 
+      <LevelScene>k__BackingField:
+        m_SceneAsset: {fileID: 0}
+        m_SceneName: 
     _levelsData: {fileID: 0}
 --- !u!1 &1501022622
 GameObject:

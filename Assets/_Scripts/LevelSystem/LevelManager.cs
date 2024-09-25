@@ -33,8 +33,14 @@ namespace Core.Level
             _eventBus.Subscribe<LevelLoadSignal>(LoadLevel);
             _eventBus.Subscribe<LevelResetSignal>(ResetLevel);
             _eventBus.Subscribe<LevelLoadNextSignal>(LoadNextLevel);
+            _eventBus.Subscribe<GameOverSignal>(GameOver);
 
             Application.quitting += Dispose;
+        }
+
+        private void GameOver(GameOverSignal signal)
+        {
+            _eventBus.Invoke(new LevelFailureSignal());
         }
 
         private void LoadNextLevel(LevelLoadNextSignal signal)
@@ -82,6 +88,7 @@ namespace Core.Level
             _eventBus.Unsubscribe<LevelLoadSignal>(LoadLevel);
             _eventBus.Unsubscribe<LevelResetSignal>(ResetLevel);
             _eventBus.Unsubscribe<LevelLoadNextSignal>(LoadNextLevel);
+            _eventBus.Unsubscribe<GameOverSignal>(GameOver);
         }
     }
 }

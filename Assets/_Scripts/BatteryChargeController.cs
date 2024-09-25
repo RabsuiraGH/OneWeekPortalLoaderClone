@@ -51,5 +51,12 @@ namespace Core
                 _eventBus.Invoke(new GameOverSignal());
             }
         }
+
+        private void OnDestroy()
+        {
+            _eventBus.Unsubscribe<BatteryLiftSignal>(OnBatteryLift);
+            _eventBus.Unsubscribe<PlayerMoveSignal>(OnPlayerMove);
+
+        }
     }
 }

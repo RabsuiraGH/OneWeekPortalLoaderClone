@@ -68,12 +68,14 @@ namespace Core.LevelStateMenu.Controller
         private void OpenCompletedPage(Level—ompletedSignal signal)
         {
             _levelCompletedPage.OpenMenu();
+            ToggleCamera(true);
             _eventBus.Invoke(new OpenCompletelyUISignal());
         }
 
         private void OpenFailurePage(LevelFailureSignal signal)
         {
             _levelFailurePage.OpenMenu();
+            ToggleCamera(true);
             _eventBus.Invoke(new OpenCompletelyUISignal());
         }
 
@@ -81,6 +83,11 @@ namespace Core.LevelStateMenu.Controller
         {
             _eventBus.Invoke(new OpenCompletelyUISignal());
             SceneManager.LoadScene(_mainMenuScene);
+        }
+
+        private void ToggleCamera(bool active)
+        {
+            _menuCamera.gameObject.SetActive(active);
         }
 
         private void OnDestroy()
