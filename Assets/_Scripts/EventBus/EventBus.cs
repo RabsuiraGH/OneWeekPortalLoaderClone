@@ -14,6 +14,20 @@ namespace Core.EventSystem
         private Dictionary<string, List<CallbackWithPriority>> _signalCallbacks = new Dictionary<string, List<CallbackWithPriority>>();
         [SerializeField] private DebugLogger _debugger = new();
 
+#if UNITY_EDITOR
+        public void GetAllData()
+        {
+            _debugger.Log(null,"EVENT BUS SIGNALS!!");
+            foreach (KeyValuePair<string, List<CallbackWithPriority>> pair in _signalCallbacks)
+            {
+                foreach (CallbackWithPriority callback in _signalCallbacks[pair.Key])
+                {
+                    _debugger.Log(null, $" SIGNAL: {(pair.Key).Color(Cyan)} -- CALLBACK: {((callback.Callback)).Color(Cyan)}");
+                }
+            }
+        }
+#endif
+
         public void Subscribe<T>(Action<T> callback, int priority = 0)
         {
             string key = typeof(T).Name;
@@ -27,7 +41,7 @@ namespace Core.EventSystem
                 _signalCallbacks.Add(key, new List<CallbackWithPriority>() { new(priority, callback) });
             }
 
-            _debugger.Log(new(), $"Action {(callback).ToString().Color(Green)} was subscribed " +
+            _debugger.Log(null, $"Action {(callback.Method.Name).ToString().Color(Green)} was subscribed " +
                                                     $"to signal {(typeof(T).Name).Color(Green)}");
 
             _signalCallbacks[key] = _signalCallbacks[key].OrderByDescending(x => x.Priority).ToList();
@@ -39,13 +53,18 @@ namespace Core.EventSystem
 
             if (_signalCallbacks.ContainsKey(key))
             {
-                _debugger.Log(new(), $"Signal {(signal).Color(Green)} was Invoked");
+                _debugger.Log(null, $"Signal {(key).Color(Green)} was Invoked");
 
                 foreach (var obj in _signalCallbacks[key])
                 {
                     var callback = obj.Callback as Action<T>;
                     callback?.Invoke(signal);
                 }
+            }
+            else
+            {
+                Debug.LogErrorFormat("No any listeners to this signal! {0} (possible missing eventBus instance)", key);
+
             }
         }
 
@@ -59,7 +78,7 @@ namespace Core.EventSystem
                 if (callbackToDelete != null)
                 {
                     _signalCallbacks[key].Remove(callbackToDelete);
-                    _debugger.Log(new(), $"Action {(callback).Color(Red)} was unsubscribed " +
+                    _debugger.Log(null, $"Action {(callback.Method.Name).Color(Red)} was unsubscribed " +
                                                     $"to signal {(typeof(T).Name).Color(Red)}");
                 }
             }
@@ -77,7 +96,7 @@ namespace Core.EventSystem
             {
                 _signalCallbacks.Remove(key);
 
-                _debugger.Log(new(), $"Signal {key} was absolutely unsubscribed!".Color(Red));
+                _debugger.Log(null, $"Signal {key} was absolutely unsubscribed!".Color(Red));
             }
             else
             {
