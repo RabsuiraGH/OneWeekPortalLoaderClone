@@ -18,6 +18,10 @@ namespace Core.UI.GlobalController
 
         [SerializeField] private DebugLogger _debugger = new();
 
+#if UNITY_EDITOR
+        [SerializeField] private InputTypeDebug _startInputModeDebug;
+#endif
+
         [Inject]
         public void Construct(EventBus eventBus, BaseInput baseInput)
         {
@@ -38,6 +42,9 @@ namespace Core.UI.GlobalController
         private void Start()
         {
             ApplyStartInputOptions();
+#if UNITY_EDITOR
+            SwitchInputDebug(_startInputModeDebug);
+#endif
         }
 
         [EasyButtons.Button]
@@ -105,7 +112,7 @@ namespace Core.UI.GlobalController
         }
 
         [EasyButtons.Button]
-        private void SwitchInput(InputTypeDebug type)
+        private void SwitchInputDebug(InputTypeDebug type)
         {
             switch (type)
             {

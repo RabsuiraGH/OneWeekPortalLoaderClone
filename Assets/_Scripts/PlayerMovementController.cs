@@ -23,6 +23,7 @@ namespace Core.Player.Movement
         [SerializeField] private LayerMask _wallLayer;
 
         private CancellationTokenSource _cancellationTokenSource;
+        private Task _currentMoveTask;
 
         [Inject]
         public void Construct(EventBus eventBus)
@@ -41,9 +42,19 @@ namespace Core.Player.Movement
             _debuger.Log(this, "Movement performed");
 
             _isMoving = true;
-            await MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, _moveTime, _cancellationTokenSource);
+            _currentMoveTask = MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, _moveTime, _cancellationTokenSource);
+            await _currentMoveTask;
             _isMoving = false;
             _eventBus.Invoke(new PlayerMoveEndSignal());
+        }
+
+        public async void PlannedMovement(Vector2 direction)
+        {
+            if (_isMoving)
+            {
+                await _currentMoveTask;
+            }
+            Move(direction);
         }
 
         public bool IsLegalMove(Vector2 direction)
@@ -58,6 +69,9 @@ namespace Core.Player.Movement
 
         private async Task MoveOverTimeAsync(Vector3 from, Vector3 to, float duration, CancellationTokenSource token)
         {
+            from = Vector3Int.RoundToInt(from);
+            to = Vector3Int.RoundToInt(to);
+
             float elapsedTime = 0;
             while (elapsedTime < duration)
             {
@@ -77,12 +91,22 @@ namespace Core.Player.Movement
         {
             _cancellationTokenSource = new CancellationTokenSource();
             _rigidBody = GetComponent<Rigidbody2D>();
+            _eventBus.Subscribe<BeltMovementSignal>(BeltMovement);
+        }
+
+        private void BeltMovement(BeltMovementSignal signal)
+        {
+            _isMoving = signal.IsMoving;
+            if (signal.MovementDirection == Vector2Int.zero) return;
+
+            PlannedMovement(signal.MovementDirection);
         }
 
         private void OnDestroy()
         {
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource.Dispose();
+            _eventBus.Unsubscribe<BeltMovementSignal>(BeltMovement);
         }
     }
 }
