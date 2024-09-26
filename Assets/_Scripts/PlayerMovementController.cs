@@ -31,7 +31,17 @@ namespace Core.Player.Movement
             _eventBus = eventBus;
         }
 
-        public async void Move(Vector2 direction)
+        public void Move(Vector2 direction)
+        {
+            PerformMovement(direction, true);
+        }
+
+        public void MoveWithoutConsequences(Vector2 direction)
+        {
+            PerformMovement(direction, false);
+        }
+
+        private async void PerformMovement(Vector2 direction, bool consequences)
         {
             if (_isMoving)
                 return;
@@ -45,16 +55,17 @@ namespace Core.Player.Movement
             _currentMoveTask = MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, _moveTime, _cancellationTokenSource);
             await _currentMoveTask;
             _isMoving = false;
-            _eventBus.Invoke(new PlayerMoveEndSignal());
+            if (consequences)
+                _eventBus.Invoke(new PlayerMoveEndSignal());
         }
 
-        public async void PlannedMovement(Vector2 direction)
+        private async void PlannedMovement(Vector2 direction, bool consequences)
         {
             if (_isMoving)
             {
                 await _currentMoveTask;
             }
-            Move(direction);
+            PerformMovement(direction, consequences);
         }
 
         public bool IsLegalMove(Vector2 direction)
@@ -92,6 +103,20 @@ namespace Core.Player.Movement
             _cancellationTokenSource = new CancellationTokenSource();
             _rigidBody = GetComponent<Rigidbody2D>();
             _eventBus.Subscribe<BeltMovementSignal>(BeltMovement);
+            _eventBus.Subscribe<PortalTeleportSignal>(PortalMovement);
+        }
+
+        private async void PortalMovement(PortalTeleportSignal signal)
+        {
+            _rigidBody.position = signal.TeleportPosition;
+
+            if (signal.MovementDirection == Vector2Int.zero) return;
+
+            PlannedMovement(signal.MovementDirection,false);
+
+            await _currentMoveTask;
+
+            _eventBus.Invoke(new PortalTeleportEndSignal());
         }
 
         private void BeltMovement(BeltMovementSignal signal)
@@ -99,7 +124,7 @@ namespace Core.Player.Movement
             _isMoving = signal.IsMoving;
             if (signal.MovementDirection == Vector2Int.zero) return;
 
-            PlannedMovement(signal.MovementDirection);
+            PlannedMovement(signal.MovementDirection, false);
         }
 
         private void OnDestroy()
@@ -107,6 +132,7 @@ namespace Core.Player.Movement
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource.Dispose();
             _eventBus.Unsubscribe<BeltMovementSignal>(BeltMovement);
+            _eventBus.Unsubscribe<PortalTeleportSignal>(PortalMovement);
         }
     }
 }
