@@ -1,5 +1,6 @@
 using Core.EventSystem;
 using Core.EventSystem.Signals;
+
 using Core.Utility.DebugTool;
 using UnityEngine;
 using Zenject;
@@ -38,10 +39,10 @@ namespace Core
         {
             _batteryCharges += signal.Charge;
 
-            if(_batteryCharges > _maximumBatteryCharges)
+            if (_batteryCharges > _maximumBatteryCharges)
             {
                 _batteryCharges = _maximumBatteryCharges;
-            }    
+            }
         }
 
         private void LockFailure(LevelCompletedSignal signal)
@@ -52,6 +53,7 @@ namespace Core
         private void OnBatteryLift(BatteryLiftSignal batteryLiftSignal)
         {
             _isBatteeryLifted = true;
+            _eventBus.Invoke(new BatteryInfoSignal(_maximumBatteryCharges, _batteryCharges));
             _eventBus.Subscribe<PlayerMoveEndSignal>(OnPlayerMove);
         }
 
@@ -61,6 +63,8 @@ namespace Core
 
             _batteryCharges -= 1;
             _debuger.Log(this, $"Current battery charge: {_batteryCharges}");
+
+            _eventBus.Invoke(new BatteryChargeChangedSignal(_batteryCharges));
 
             if (_batteryCharges <= 0)
             {
