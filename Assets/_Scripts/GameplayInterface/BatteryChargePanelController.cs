@@ -9,6 +9,7 @@ namespace Core.GameplayInterface.Controller
 {
     public class BatteryChargePanelController : MonoBehaviour
     {
+        [SerializeField] private Canvas _canvas;
         [SerializeField] private BatteryChargePanelUI _panel;
 
         [SerializeField] private EventBus _eventBus;
@@ -18,9 +19,11 @@ namespace Core.GameplayInterface.Controller
         {
             _eventBus = eventBus;
         }
-        [EasyButtons.Button]
+
         private void Awake()
         {
+            _canvas.worldCamera = Camera.main;
+
             _eventBus.Subscribe<BatteryInfoSignal>(PrepareUI);
             _eventBus.Subscribe<BatteryChargeChangedSignal>(UpdateUI);
         }
