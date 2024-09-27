@@ -13,6 +13,8 @@ namespace Core
 
         [SerializeField] private int _maximumBatteryCharges = 10;
 
+        [SerializeField] private int _playerMoveCost = 1;
+
         [SerializeField] private EventBus _eventBus = null;
 
         [SerializeField] private bool _isBatteeryLifted = false;
@@ -37,12 +39,17 @@ namespace Core
 
         private void ChargeBattery(AccumulatorLiftSignal signal)
         {
-            _batteryCharges += signal.Charge;
+            ChangeBatteryCharge(signal.Charge);
+        }
 
+        private void ChangeBatteryCharge(int toAdd)
+        {
+            _batteryCharges += toAdd;
             if (_batteryCharges > _maximumBatteryCharges)
             {
                 _batteryCharges = _maximumBatteryCharges;
             }
+            _eventBus.Invoke(new BatteryChargeChangedSignal(_batteryCharges));
         }
 
         private void LockFailure(LevelCompletedSignal signal)
@@ -62,10 +69,9 @@ namespace Core
         {
             if (!_isBatteeryLifted) return;
 
-            _batteryCharges -= 1;
-            _debuger.Log(this, $"Current battery charge: {_batteryCharges}");
+            ChangeBatteryCharge(-_playerMoveCost);
 
-            _eventBus.Invoke(new BatteryChargeChangedSignal(_batteryCharges));
+            _debuger.Log(this, $"Current battery charge: {_batteryCharges}");
         }
 
         private void CheckBatteryCharge(PlayerMoveEndSignal signal)
