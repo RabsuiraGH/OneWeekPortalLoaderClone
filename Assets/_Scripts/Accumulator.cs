@@ -1,5 +1,6 @@
 using Core.EventSystem;
 using Core.EventSystem.Signals;
+using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -16,7 +17,6 @@ namespace Core
         [SerializeField] private int _charge = 0;
 
         [SerializeField] private bool _isBatteeryLifted = false;
-
 
         [Inject]
         public void Construct(EventBus eventBus)
@@ -44,10 +44,17 @@ namespace Core
 
             Destroy(this.gameObject);
         }
+
         private void OnDestroy()
         {
             _eventBus.Unsubscribe<BatteryLiftSignal>(OnBatteryLifted);
+        }
 
+        private void OnDrawGizmos()
+        {
+            GUIStyle style = new GUIStyle();
+            style.fontSize = 20;
+            Handles.Label(transform.position, $"{_charge}", style);
         }
     }
 }
