@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4b707bdd318e64bb924a483c3406f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 1651083213614962933}
   _panel: {fileID: 3616970862596588364}
   _eventBus:
     _debugger:

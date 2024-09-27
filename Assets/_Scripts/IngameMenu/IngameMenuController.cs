@@ -19,7 +19,6 @@ namespace Core.IngameMenu.Controller
         [Inject]
         public void Construct(EventBus eventBus)
         {
-            Debug.Log(($"ASDASDFDASFASF"));
             _eventBus = eventBus;
         }
 
