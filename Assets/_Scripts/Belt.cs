@@ -29,5 +29,11 @@ namespace Core
 
             _eventBus.Invoke(new BeltMovementSignal(true, _direction));
         }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawLine(transform.position, transform.position + (Vector3)(Vector2)_direction * 0.5f);
+            Gizmos.DrawWireSphere(transform.position, 0.25f);
+        }
     }
 }

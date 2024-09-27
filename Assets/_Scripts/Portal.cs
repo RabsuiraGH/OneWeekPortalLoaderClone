@@ -64,5 +64,11 @@ namespace Core
             _requireTeleport = false;
             _objectToTeleport = null;
         }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawLine(transform.position, transform.position + (Vector3)(Vector2)ExitDirection * 0.5f);
+            Gizmos.DrawWireSphere(transform.position, 0.25f);
+        }
     }
 }

@@ -68,7 +68,7 @@ namespace Core.EventSystem
             }
             else
             {
-                Debug.LogErrorFormat("No any listeners to this signal! {0} (possible missing eventBus instance)", key);
+                Debug.LogWarning($"No any listeners to {(key).Color(Green)} signal! (possible missing eventBus instance)");
             }
         }
 
@@ -88,7 +88,7 @@ namespace Core.EventSystem
             }
             else
             {
-                Debug.LogErrorFormat("Trying to unsubscribe for not existing key! {0} ", key);
+                Debug.LogError($"Trying to unsubscribe for not existing key {(key).Color(Red)}!");
             }
         }
 
@@ -100,11 +100,11 @@ namespace Core.EventSystem
             {
                 _signalCallbacks.Remove(key);
 
-                _debugger.Log(null, $"Signal {key} was absolutely unsubscribed!".Color(Red));
+                _debugger.Log(null, $"Signal {(key).Color(Red)} was absolutely unsubscribed!".Color(Red));
             }
             else
             {
-                Debug.LogErrorFormat("Trying to unsubscribe for not existing key! {0} ", key);
+                Debug.LogError($"Trying to unsubscribe for not existing key {(key).Color(Red)}!");
             }
         }
     }
