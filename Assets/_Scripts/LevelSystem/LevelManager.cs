@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.EventSystem;
 using Core.EventSystem.Signals;
 using SceneFieldTools;
@@ -13,10 +14,13 @@ namespace Core.Level
     public class LevelManager : IDisposable
     {
         [Inject(Id = Zenject.ZenjectIDs.IngameMenu)]
-        [SerializeField] private SceneField _ingameMenuScene = null;
+        [SerializeField] private GameObject _ingameMenu = null;
 
         [Inject(Id = Zenject.ZenjectIDs.LevelCompletedMenu)]
-        [SerializeField] private SceneField _levelCompletedMenu = null;
+        [SerializeField] private GameObject _levelCompletedMenu = null;
+
+        [Inject(Id = Zenject.ZenjectIDs.GameplayInterface)]
+        [SerializeField] private GameObject _gameplayInterface = null;
 
         [SerializeField] private LevelData _currentLevel = null;
 
@@ -75,12 +79,23 @@ namespace Core.Level
             LoadLevel(_levelsData.GetLevelAt(levelIndex));
         }
 
-        private void LoadLevel(LevelData level)
+        private async void LoadLevel(LevelData level)
         {
             _currentLevel = level;
-            SceneManager.LoadScene(level.LevelScene);
-            SceneManager.LoadScene(_ingameMenuScene, LoadSceneMode.Additive);
-            SceneManager.LoadScene(_levelCompletedMenu, LoadSceneMode.Additive);
+            await LoadSceneAsync(level.LevelScene);
+            GameObject.Instantiate(_ingameMenu);
+            GameObject.Instantiate(_levelCompletedMenu);
+            GameObject.Instantiate(_gameplayInterface);
+        }
+
+        private async Task LoadSceneAsync(string sceneName)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+            while (!asyncLoad.isDone)
+            {
+                await Task.Yield();
+            }
         }
 
         public void Dispose()

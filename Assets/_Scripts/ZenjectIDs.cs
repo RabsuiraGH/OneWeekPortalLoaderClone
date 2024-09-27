@@ -6,5 +6,6 @@ namespace Core.Zenject
     {
         public const string IngameMenu = "IngameMenu";
         public const string LevelCompletedMenu = "LevelCompletedMenu";
+        public const string GameplayInterface = "GameplayInterface";
     }
 }

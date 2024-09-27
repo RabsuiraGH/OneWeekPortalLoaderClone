@@ -15,17 +15,22 @@ namespace Core.EventSystem
         [SerializeField] private DebugLogger _debugger = new();
 
 #if UNITY_EDITOR
+
         public void GetAllData()
         {
-            _debugger.Log(null,"EVENT BUS SIGNALS!!");
+            _debugger.Log(null, "EVENT BUS SIGNALS!!");
             foreach (KeyValuePair<string, List<CallbackWithPriority>> pair in _signalCallbacks)
             {
                 foreach (CallbackWithPriority callback in _signalCallbacks[pair.Key])
                 {
-                    _debugger.Log(null, $" SIGNAL: {(pair.Key).Color(Cyan)} -- CALLBACK: {((callback.Callback)).Color(Cyan)}");
+                    if (callback.Callback is Delegate d)
+                        _debugger.Log(null, $" SIGNAL: {(pair.Key).Color(Cyan)} -- CALLBACK: {((d.Method.Name)).Color(Cyan)}");
+                    else
+                        _debugger.Log(null, $" SIGNAL: {(pair.Key).Color(Cyan)} -- CALLBACK: {((callback.Callback)).Color(Cyan)}");
                 }
             }
         }
+
 #endif
 
         public void Subscribe<T>(Action<T> callback, int priority = 0)
@@ -64,7 +69,6 @@ namespace Core.EventSystem
             else
             {
                 Debug.LogErrorFormat("No any listeners to this signal! {0} (possible missing eventBus instance)", key);
-
             }
         }
 

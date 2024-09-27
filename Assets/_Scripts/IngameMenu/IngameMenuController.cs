@@ -10,6 +10,7 @@ namespace Core.IngameMenu.Controller
 {
     public class IngameMenuController : MonoBehaviour
     {
+        [SerializeField] private Canvas _canvas = null;
         [SerializeField] private IngameManuPageUI _ingameMenuPage = null;
         [SerializeField] private SceneField _mainMenuScene = null;
 
@@ -18,11 +19,14 @@ namespace Core.IngameMenu.Controller
         [Inject]
         public void Construct(EventBus eventBus)
         {
+            Debug.Log(($"ASDASDFDASFASF"));
             _eventBus = eventBus;
         }
 
         private void Awake()
         {
+            _canvas.worldCamera = Camera.main;
+
             _ingameMenuPage.OnContinueButtonClicked += ContinueGame;
             _ingameMenuPage.OnBackToStartMenuClicked += BackToStartMenu;
             _eventBus.Subscribe<EscapeCommandSignal>(ToggleMenu);

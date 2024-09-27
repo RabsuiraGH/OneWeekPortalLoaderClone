@@ -6,8 +6,9 @@ namespace Core.Level
 {
     public class LevelZInstaller : MonoInstaller
     {
-        [SerializeField] private SceneField _ingameMenuScene;
-        [SerializeField] private SceneField _levelCompletedMenuScene;
+        [SerializeField] private GameObject _ingameMenuScene;
+        [SerializeField] private GameObject _levelCompletedMenuScene;
+        [SerializeField] private GameObject _gameplayInterface;
 
         [SerializeField] private LevelsDataSO _levelsData;
 
@@ -15,8 +16,9 @@ namespace Core.Level
         {
             Container.Bind<LevelsDataSO>().FromInstance(_levelsData);
             Container.Bind<LevelManager>().AsSingle().NonLazy();
-            Container.Bind<SceneField>().WithId(Zenject.ZenjectIDs.IngameMenu).FromInstance(_ingameMenuScene);
-            Container.Bind<SceneField>().WithId(Zenject.ZenjectIDs.LevelCompletedMenu).FromInstance(_levelCompletedMenuScene);
+            Container.Bind<GameObject>().WithId(Zenject.ZenjectIDs.IngameMenu).FromInstance(_ingameMenuScene);
+            Container.Bind<GameObject>().WithId(Zenject.ZenjectIDs.LevelCompletedMenu).FromInstance(_levelCompletedMenuScene);
+            Container.Bind<GameObject>().WithId(Zenject.ZenjectIDs.GameplayInterface).FromInstance(_gameplayInterface);
         }
     }
 }

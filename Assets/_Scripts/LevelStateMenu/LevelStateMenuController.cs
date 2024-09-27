@@ -10,10 +10,10 @@ namespace Core.LevelStateMenu.Controller
 {
     public class LevelStateMenuController : MonoBehaviour
     {
+        [SerializeField] private Canvas _canvas = null;
+
         [SerializeField] private LevelStateCompletedPageUI _levelCompletedPage = null;
         [SerializeField] private LevelStateFailurePageUI _levelFailurePage = null;
-
-        [SerializeField] private Camera _menuCamera = null;
 
         [SerializeField] private SceneField _mainMenuScene = null;
 
@@ -27,6 +27,8 @@ namespace Core.LevelStateMenu.Controller
 
         private void Awake()
         {
+            _canvas.worldCamera = Camera.main;
+
             _eventBus.Subscribe<LevelCompletedSignal>(OpenCompletedPage);
             _eventBus.Subscribe<LevelFailureSignal>(OpenFailurePage);
 
@@ -44,9 +46,6 @@ namespace Core.LevelStateMenu.Controller
 
             if (_levelFailurePage.IsOpen())
                 _levelFailurePage.HideMenu();
-
-            if (_menuCamera.gameObject.activeSelf)
-                _menuCamera.gameObject.SetActive(false);
         }
 
         private void ResetCurrentLevel()
@@ -68,14 +67,12 @@ namespace Core.LevelStateMenu.Controller
         private void OpenCompletedPage(LevelCompletedSignal signal)
         {
             _levelCompletedPage.OpenMenu();
-            ToggleCamera(true);
             _eventBus.Invoke(new OpenCompletelyUISignal());
         }
 
         private void OpenFailurePage(LevelFailureSignal signal)
         {
             _levelFailurePage.OpenMenu();
-            ToggleCamera(true);
             _eventBus.Invoke(new OpenCompletelyUISignal());
         }
 
@@ -83,11 +80,6 @@ namespace Core.LevelStateMenu.Controller
         {
             _eventBus.Invoke(new OpenCompletelyUISignal());
             SceneManager.LoadScene(_mainMenuScene);
-        }
-
-        private void ToggleCamera(bool active)
-        {
-            _menuCamera.gameObject.SetActive(active);
         }
 
         private void OnDestroy()
