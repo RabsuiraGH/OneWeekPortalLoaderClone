@@ -50,6 +50,8 @@ namespace Core.Player.Movement
                 return;
 
             _debuger.Log(this, "Movement performed");
+            if (consequences)
+                _eventBus.Invoke(new PlayerMoveStartSignal());
 
             _isMoving = true;
             _currentMoveTask = MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, _moveTime, _cancellationTokenSource);
@@ -112,7 +114,7 @@ namespace Core.Player.Movement
 
             if (signal.MovementDirection == Vector2Int.zero) return;
 
-            PlannedMovement(signal.MovementDirection,false);
+            PlannedMovement(signal.MovementDirection, false);
 
             await _currentMoveTask;
 

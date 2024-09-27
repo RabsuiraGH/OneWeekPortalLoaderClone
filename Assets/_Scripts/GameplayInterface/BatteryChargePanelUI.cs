@@ -56,7 +56,7 @@ namespace Core.GameplayInterface.UI
 
             for (int i = 0; i < _batteryChargeCells.Count; i++)
             {
-                if (i < activeCellCount - 1)
+                if (i < activeCellCount)
                     _batteryChargeCells[i].SetActive(true);
                 else
                     _batteryChargeCells[i].SetActive(false);

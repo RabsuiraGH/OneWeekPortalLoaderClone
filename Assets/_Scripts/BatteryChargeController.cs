@@ -1,6 +1,6 @@
 using Core.EventSystem;
 using Core.EventSystem.Signals;
-
+using Core.MainMenu.UI;
 using Core.Utility.DebugTool;
 using UnityEngine;
 using Zenject;
@@ -50,14 +50,15 @@ namespace Core
             _lockFailure = true;
         }
 
-        private void OnBatteryLift(BatteryLiftSignal batteryLiftSignal)
+        private void OnBatteryLift(BatteryLiftSignal signal)
         {
             _isBatteeryLifted = true;
             _eventBus.Invoke(new BatteryInfoSignal(_maximumBatteryCharges, _batteryCharges));
-            _eventBus.Subscribe<PlayerMoveEndSignal>(OnPlayerMove);
+            _eventBus.Subscribe<PlayerMoveStartSignal>(OnPlayerMove);
+            _eventBus.Subscribe<PlayerMoveEndSignal>(CheckBatteryCharge);
         }
 
-        private void OnPlayerMove(PlayerMoveEndSignal playerMoveSignal)
+        private void OnPlayerMove(PlayerMoveStartSignal Signal)
         {
             if (!_isBatteeryLifted) return;
 
@@ -65,7 +66,10 @@ namespace Core
             _debuger.Log(this, $"Current battery charge: {_batteryCharges}");
 
             _eventBus.Invoke(new BatteryChargeChangedSignal(_batteryCharges));
+        }
 
+        private void CheckBatteryCharge(PlayerMoveEndSignal signal)
+        {
             if (_batteryCharges <= 0)
             {
                 _debuger.Log(this, $"Battery have no charges!");
@@ -81,7 +85,10 @@ namespace Core
         {
             _eventBus.Unsubscribe<BatteryLiftSignal>(OnBatteryLift);
             if (_isBatteeryLifted)
-                _eventBus.Unsubscribe<PlayerMoveEndSignal>(OnPlayerMove);
+            {
+                _eventBus.Unsubscribe<PlayerMoveStartSignal>(OnPlayerMove);
+                _eventBus.Unsubscribe<PlayerMoveEndSignal>(CheckBatteryCharge);
+            }
             _eventBus.Unsubscribe<AccumulatorLiftSignal>(ChargeBattery);
         }
     }
