@@ -53,6 +53,7 @@ namespace Core.Level
 
             if (nextIndex >= _levelsData.GetLevelList().Count)
             {
+                LoadLevel(nextIndex - 1);
                 throw new Exception("Next level do not exists");
             }
 
