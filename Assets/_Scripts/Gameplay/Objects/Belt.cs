@@ -12,6 +12,11 @@ namespace Core
 
         [SerializeField] private Collider2D _collider;
 
+        [SerializeField] private Animator _animator;
+
+        private static readonly int HorizontalHash = Animator.StringToHash("Horizontal");
+        private static readonly int VerticalHash = Animator.StringToHash("Vertical");
+
         [Inject]
         public void Construct(EventBus eventBus)
         {
@@ -21,6 +26,10 @@ namespace Core
         private void Awake()
         {
             _collider = GetComponent<Collider2D>();
+            _animator = GetComponent<Animator>();
+
+            _animator.SetInteger(HorizontalHash, _direction.x);
+            _animator.SetInteger(VerticalHash, _direction.y);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
