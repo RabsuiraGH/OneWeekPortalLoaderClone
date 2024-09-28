@@ -1,6 +1,7 @@
 using Core.Input;
 using Core.Player.Movement;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Zenject;
 
 namespace Core.Player.Input
@@ -20,16 +21,13 @@ namespace Core.Player.Input
 
         private void Awake()
         {
+            _baseInput.Gameplay.Movement.started += PerformMovement;
         }
 
-        private void Update()
-        {
-            PerformMovement(_baseInput.Gameplay.Movement.ReadValue<Vector2>());
-        }
+        private void PerformMovement(InputAction.CallbackContext context)
 
-        private void PerformMovement(Vector2 direction)
         {
-            direction = GetProperlyDirection(direction);
+            Vector2 direction = GetProperlyDirection(context.ReadValue<Vector2>());
 
             if (direction == Vector2.zero) return;
 
@@ -46,6 +44,11 @@ namespace Core.Player.Input
             if (direction.x > 0) return Vector2.right;
 
             return Vector2.zero;
+        }
+
+        private void OnDestroy()
+        {
+            _baseInput.Gameplay.Movement.started -= PerformMovement;
         }
     }
 }
