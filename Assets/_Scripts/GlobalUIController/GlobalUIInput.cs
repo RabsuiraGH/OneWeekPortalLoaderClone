@@ -1,12 +1,12 @@
-using Core.EventSystem;
-using Core.EventSystem.Signals;
+using Core.GameEventSystem;
+using Core.GameEventSystem.Signals;
 using Core.Utility.DebugTool;
 using UnityEngine;
 using Zenject;
 
 namespace Core
 {
-    public class GlobalUIController : MonoBehaviour
+    public class GlobalUIInput : MonoBehaviour
     {
         [SerializeField] private EventBus _eventBus = null;
 
@@ -32,6 +32,7 @@ namespace Core
             _debugger.Log(this, signal);
 
             _eventBus.Invoke(new SwitchToUIInputSignal());
+            _eventBus.Invoke(new AnyActionUISignal());
         }
 
         private void UIClosedCompletely(CloseCompletelyUISignal signal)
@@ -39,11 +40,14 @@ namespace Core
             _debugger.Log(this, signal);
 
             _eventBus.Invoke(new SwitchToGameplayInputSignal());
+            _eventBus.Invoke(new AnyActionUISignal());
         }
 
         private void UIWindowSwitched(SwitchWidowUISignal signal)
         {
             _debugger.Log(this, signal);
+
+            _eventBus.Invoke(new AnyActionUISignal());
         }
 
         private void OnDestroy()

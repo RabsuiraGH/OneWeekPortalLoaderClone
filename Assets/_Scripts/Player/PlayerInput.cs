@@ -1,6 +1,5 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Core.Input;
 using Core.Player.Movement;
 using Core.Utility.VectorC;
 using UnityEngine;
@@ -73,11 +72,13 @@ namespace Core.Input.Player
             _player.Move(direction);
         }
 
-
         private void OnDestroy()
         {
-            _cancellationTokenSource.Cancel();
-            _cancellationTokenSource.Dispose();
+            if (_cancellationTokenSource != null)
+            {
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource.Dispose();
+            }
 
             _baseInput.Gameplay.Movement.started -= OnMovementStarted;
             _baseInput.Gameplay.Movement.canceled -= OnMovementCanceled;

@@ -29,11 +29,17 @@ namespace Core.LevelStateMenu.UI
         public void OpenMenu()
         {
             _page.gameObject.SetActive(true);
+
+            StartSelection();
         }
 
         public void HideMenu()
         {
             _page.gameObject.SetActive(false);
+        }
+        public void StartSelection()
+        {
+            _nextLevelButton.Select();
         }
 
         private void OnDestroy()

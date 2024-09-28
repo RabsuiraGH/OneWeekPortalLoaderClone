@@ -29,6 +29,8 @@ namespace Core.LevelStateMenu.UI
         public void OpenMenu()
         {
             _page.gameObject.SetActive(true);
+
+            StartSelection();
         }
 
         public void HideMenu()
@@ -36,6 +38,10 @@ namespace Core.LevelStateMenu.UI
             _page.gameObject.SetActive(false);
         }
 
+        public void StartSelection()
+        {
+            _restartLevelButton.Select();
+        }
         private void OnDestroy()
         {
             _restartLevelButton.onClick.RemoveAllListeners();

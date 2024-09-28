@@ -1,11 +1,13 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.EventSystem;
-using Core.EventSystem.Signals;
+using Core.GameEventSystem;
+using Core.GameEventSystem.Signals;
 using Core.Level;
 using Core.MainMenu.UI;
 using UnityEngine;
 using Zenject;
+using UnityEngine.EventSystems;
 
 namespace Core.MainMenu.Controller
 {
@@ -35,6 +37,16 @@ namespace Core.MainMenu.Controller
 
             _levelSelectionMenuPage.OnExitButtonClicked += SwitchToStartMenu;
             _levelSelectionMenuPage.OnLevelSelected += StartLevel;
+
+            SwitchToStartMenu();
+        }
+
+        private void StartSelection()
+        {
+            if (_startMenuPage.IsOpen())
+                _startMenuPage.StartSelection();
+            else if (_levelSelectionMenuPage.IsOpen())
+                _levelSelectionMenuPage.StartSelection();
         }
 
         private void SwitchToStartMenu()

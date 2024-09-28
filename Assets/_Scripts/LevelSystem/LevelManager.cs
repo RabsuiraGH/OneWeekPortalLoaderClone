@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Core.EventSystem;
-using Core.EventSystem.Signals;
+using Core.GameEventSystem;
+using Core.GameEventSystem.Signals;
 using SceneFieldTools;
 using UnityEngine;
 using UnityEngine.SceneManagement;

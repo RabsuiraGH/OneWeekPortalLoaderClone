@@ -1,6 +1,6 @@
 using System;
-using Core.EventSystem;
-using Core.EventSystem.Signals;
+using Core.GameEventSystem;
+using Core.GameEventSystem.Signals;
 using Core.GameplayInterface.UI;
 using UnityEngine;
 using Zenject;

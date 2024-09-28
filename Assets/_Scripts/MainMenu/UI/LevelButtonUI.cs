@@ -17,6 +17,10 @@ namespace Core.MainMenu.UI
             _button.onClick.AddListener(OnClickInvoke);
         }
 
+        public void Select()
+        {
+            _button.Select();
+        }
         public void PrepareButton(string levelName)
         {
             _levelText.text = levelName;

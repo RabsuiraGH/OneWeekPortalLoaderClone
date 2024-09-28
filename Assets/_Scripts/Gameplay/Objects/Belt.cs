@@ -1,4 +1,4 @@
-using Core.EventSystem;
+using Core.GameEventSystem;
 using UnityEngine;
 using Zenject;
 

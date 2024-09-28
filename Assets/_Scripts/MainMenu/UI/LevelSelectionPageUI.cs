@@ -64,7 +64,12 @@ namespace Core.MainMenu.UI
             int index = _levelButtons.IndexOf(uI);
             OnLevelSelected?.Invoke(index);
         }
+        public void StartSelection()
+        {
+            if (_levelButtons.Count <= 0) return;
 
+            _levelButtons[0].Select();
+        }
         public bool IsOpen()
         {
             return _page.gameObject.activeSelf;
@@ -73,6 +78,7 @@ namespace Core.MainMenu.UI
         public void Show()
         {
             _page.gameObject.SetActive(true);
+            StartSelection();
         }
 
         public void Hide()
@@ -84,5 +90,7 @@ namespace Core.MainMenu.UI
         {
             _exitButton.onClick.RemoveAllListeners();
         }
+
+
     }
 }

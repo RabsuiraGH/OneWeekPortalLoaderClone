@@ -1,5 +1,5 @@
-using Core.EventSystem;
-using Core.EventSystem.Signals;
+using Core.GameEventSystem;
+using Core.GameEventSystem.Signals;
 using Core.Input;
 using Core.Utility.DebugTool;
 using UnityEngine;

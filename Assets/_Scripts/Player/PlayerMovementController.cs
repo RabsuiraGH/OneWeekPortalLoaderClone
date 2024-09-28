@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Core.EventSystem;
-using Core.EventSystem.Signals;
+using Core.GameEventSystem;
+using Core.GameEventSystem.Signals;
 using Core.Utility.DebugTool;
 using UnityEngine;
 using Zenject;

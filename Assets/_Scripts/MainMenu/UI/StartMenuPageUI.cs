@@ -21,6 +21,11 @@ namespace Core.MainMenu.UI
             _exitButton.onClick.AddListener(() => OnExitButtonClicked?.Invoke());
         }
 
+        public void StartSelection()
+        {
+            _startButton.Select();
+        }
+
         public bool IsOpen()
         {
             return _page.gameObject.activeSelf;
@@ -29,6 +34,7 @@ namespace Core.MainMenu.UI
         public void Show()
         {
             _page.gameObject.SetActive(true);
+            StartSelection();
         }
 
         public void Hide()

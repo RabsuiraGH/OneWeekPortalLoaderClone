@@ -29,11 +29,18 @@ namespace Core.IngameMenu.UI
         public void OpenMenu()
         {
             _page.gameObject.SetActive(true);
+
+            StartSelection();
         }
 
         public void HideMenu()
         {
             _page.gameObject.SetActive(false);
+        }
+
+        public void StartSelection()
+        {
+            _continueButton.Select();
         }
 
         private void OnDestroy()
