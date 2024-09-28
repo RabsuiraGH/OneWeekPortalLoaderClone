@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Core.EventSystem.Signals
+namespace Core.GameEventSystem.Signals
 {
     public class OpenCompletelyUISignal
     {

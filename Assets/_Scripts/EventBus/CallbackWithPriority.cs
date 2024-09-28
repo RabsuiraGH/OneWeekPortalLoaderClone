@@ -1,4 +1,4 @@
-﻿namespace Core.EventSystem
+﻿namespace Core.GameEventSystem
 {
     public class CallbackWithPriority
     {

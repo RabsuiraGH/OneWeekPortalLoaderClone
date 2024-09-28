@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace Core.EventSystem
+namespace Core.GameEventSystem
 {
     public class EventBusZInstaller : MonoInstaller
     {

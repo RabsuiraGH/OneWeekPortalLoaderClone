@@ -1,4 +1,4 @@
-namespace Core.EventSystem.Signals
+namespace Core.GameEventSystem.Signals
 {
     public class PlayerMoveEndSignal
     {

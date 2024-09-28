@@ -6,7 +6,7 @@ using UnityEngine;
 
 using static Core.Utility.DebugTool.DebugColorOptions.HtmlColor;
 
-namespace Core.EventSystem
+namespace Core.GameEventSystem
 {
     [Serializable]
     public class EventBus

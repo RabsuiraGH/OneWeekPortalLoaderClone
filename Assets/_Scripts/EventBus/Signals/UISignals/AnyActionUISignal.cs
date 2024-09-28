@@ -1,6 +1,6 @@
 namespace Core.GameEventSystem.Signals
 {
-    public class SwitchToGameplayInputSignal
+    public class AnyActionUISignal
     {
     }
 }
