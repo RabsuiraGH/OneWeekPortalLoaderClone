@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 8260510659729012195}
   - component: {fileID: -5979485293973119535}
   - component: {fileID: 2622783878460346780}
-  - component: {fileID: 5218419561620456727}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -149,22 +148,6 @@ MonoBehaviour:
     _enableDebug: 1
     _defaultFontSize: 12
   _startInputModeDebug: 1
---- !u!114 &5218419561620456727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2662430720294736334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 456331e3e72639b48ae3e864391543d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _eventBus:
-    _debugger:
-      _enableDebug: 1
-      _defaultFontSize: 12
 --- !u!1 &7087210512104033098
 GameObject:
   m_ObjectHideFlags: 0
