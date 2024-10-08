@@ -4253,23 +4253,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
-<<<<<<< HEAD
---- !u!4 &914944277 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7433865056221078489, guid: 4a926aa11ffaa57499a814ebbb34c3ef, type: 3}
-  m_PrefabInstance: {fileID: 867259648}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1034737296 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7433865056221078489, guid: 4a926aa11ffaa57499a814ebbb34c3ef, type: 3}
-  m_PrefabInstance: {fileID: 176677834}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1115962779 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7433865056221078489, guid: 4a926aa11ffaa57499a814ebbb34c3ef, type: 3}
-  m_PrefabInstance: {fileID: 1268149974}
-  m_PrefabAsset: {fileID: 0}
-=======
 --- !u!95 &883205293
 Animator:
   serializedVersion: 5
@@ -4340,7 +4323,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7433865056221078489, guid: 4a926aa11ffaa57499a814ebbb34c3ef, type: 3}
   m_PrefabInstance: {fileID: 1268149974}
   m_PrefabAsset: {fileID: 0}
->>>>>>> NewAnimations
 --- !u!1 &1241601362
 GameObject:
   m_ObjectHideFlags: 0
