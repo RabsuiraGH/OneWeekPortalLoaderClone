@@ -147,7 +147,7 @@ MonoBehaviour:
   _debugger:
     _enableDebug: 1
     _defaultFontSize: 12
-  _startInputModeDebug: 1
+  _startInputModeDebug: 0
 --- !u!1 &7087210512104033098
 GameObject:
   m_ObjectHideFlags: 0

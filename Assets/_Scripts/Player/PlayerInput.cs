@@ -12,7 +12,7 @@ namespace Core.Input.Player
     {
         [SerializeField] private BaseInput _baseInput = null;
 
-        [SerializeField] private IMoveable _player = null;
+        [SerializeField] private IPerformMovement _player = null;
 
         [SerializeField] private bool _isHoldingMovement = false;
 
@@ -21,7 +21,7 @@ namespace Core.Input.Player
         private CancellationTokenSource _cancellationTokenSource = null;
 
         [Inject]
-        public void Construct(IMoveable player, BaseInput baseInput)
+        public void Construct(IPerformMovement player, BaseInput baseInput)
         {
             _player = player;
             _baseInput = baseInput;
@@ -69,7 +69,7 @@ namespace Core.Input.Player
 
             if (direction == Vector2.zero) return;
 
-            _player.Move(direction);
+            _player.InputMove(direction);
         }
 
         private void OnDestroy()

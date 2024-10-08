@@ -10,7 +10,7 @@ namespace Core.Player
 
         public override void InstallBindings()
         {
-            Container.Bind<IMoveable>().FromInstance(_player);
+            Container.Bind<IPerformMovement>().FromInstance(_player);
         }
     }
 }

@@ -4079,7 +4079,8 @@ GameObject:
   - component: {fileID: 883205291}
   - component: {fileID: 883205290}
   - component: {fileID: 883205293}
-  - component: {fileID: 883205292}
+  - component: {fileID: 883205294}
+  - component: {fileID: 883205295}
   m_Layer: 0
   m_Name: PlayerLoader
   m_TagString: Player
@@ -4195,17 +4196,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveTime: 0.2
   _rigidBody: {fileID: 883205287}
-  _isMoving: 0
+  <IsMoving>k__BackingField: 0
+  <FaceDirection>k__BackingField: 0
   _debuger:
     _enableDebug: 0
     _defaultFontSize: 12
+  _wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
   _eventBus:
     _debugger:
       _enableDebug: 1
       _defaultFontSize: 12
-  _wallLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!61 &883205291
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4251,22 +4253,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &883205292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 883205286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2bb8c5bfa497894992e5a336b2db519, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentAnimationState: 
-  _animatorTag: Player
-  _isAnimationPlaying: 0
-  _animator: {fileID: 883205293}
 --- !u!95 &883205293
 Animator:
   serializedVersion: 5
@@ -4288,6 +4274,40 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &883205294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883205286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a2627dcab8b4245b48cb700bf81054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentAnimationState: 
+  _animatorTag: Player
+  _isAnimationPlaying: 0
+  _animator: {fileID: 883205293}
+--- !u!114 &883205295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883205286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e8e706205f56f40931be1646f50732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementController: {fileID: 883205290}
+  <Animator>k__BackingField: {fileID: 883205294}
+  _eventBus:
+    _debugger:
+      _enableDebug: 1
+      _defaultFontSize: 12
 --- !u!4 &914944277 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7433865056221078489, guid: 4a926aa11ffaa57499a814ebbb34c3ef, type: 3}

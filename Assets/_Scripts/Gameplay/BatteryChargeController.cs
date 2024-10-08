@@ -61,11 +61,11 @@ namespace Core
         {
             _isBatteeryLifted = true;
             _eventBus.Invoke(new BatteryInfoSignal(_maximumBatteryCharges, _batteryCharges));
-            _eventBus.Subscribe<PlayerMoveStartSignal>(OnPlayerMove);
-            _eventBus.Subscribe<PlayerMoveEndSignal>(CheckBatteryCharge);
+            _eventBus.Subscribe<PlayerInputMoveStartSignal>(OnPlayerMove);
+            _eventBus.Subscribe<PlayerInputMoveEndSignal>(CheckBatteryCharge);
         }
 
-        private void OnPlayerMove(PlayerMoveStartSignal Signal)
+        private void OnPlayerMove(PlayerInputMoveStartSignal Signal)
         {
             if (!_isBatteeryLifted) return;
 
@@ -74,7 +74,7 @@ namespace Core
             _debuger.Log(this, $"Current battery charge: {_batteryCharges}");
         }
 
-        private void CheckBatteryCharge(PlayerMoveEndSignal signal)
+        private void CheckBatteryCharge(PlayerInputMoveEndSignal signal)
         {
             if (_batteryCharges <= 0)
             {
@@ -92,8 +92,8 @@ namespace Core
             _eventBus.Unsubscribe<BatteryLiftSignal>(OnBatteryLift);
             if (_isBatteeryLifted)
             {
-                _eventBus.Unsubscribe<PlayerMoveStartSignal>(OnPlayerMove);
-                _eventBus.Unsubscribe<PlayerMoveEndSignal>(CheckBatteryCharge);
+                _eventBus.Unsubscribe<PlayerInputMoveStartSignal>(OnPlayerMove);
+                _eventBus.Unsubscribe<PlayerInputMoveEndSignal>(CheckBatteryCharge);
             }
             _eventBus.Unsubscribe<AccumulatorLiftSignal>(ChargeBattery);
         }
