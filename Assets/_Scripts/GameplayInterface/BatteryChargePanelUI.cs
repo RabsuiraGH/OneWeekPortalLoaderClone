@@ -1,21 +1,25 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Core.GameplayInterface.UI
 {
     public class BatteryChargePanelUI : MonoBehaviour
     {
-        [SerializeField] private RectTransform _panel;
+        [SerializeField] private RectTransform _panel = null;
+
+        [SerializeField] private RectTransform _grid = null;
         [SerializeField] private Vector2Int _cellSize = new Vector2Int(64, 32);
 
         [SerializeField] private RectOffset _padding;
 
         [SerializeField] private Vector2Int _spacing = new Vector2Int(8, 8);
 
-        [SerializeField] private GameObject _batteryChargeCellPrefab;
+        [SerializeField] private TextMeshProUGUI _chargeCountText = null;
 
-        [SerializeField] private List<GameObject> _batteryChargeCells;
+        [SerializeField] private GameObject _batteryChargeCellPrefab = null;
+
+        [SerializeField] private List<GameObject> _batteryChargeCells = null;
 
 #if UNITY_EDITOR
 
@@ -34,15 +38,11 @@ namespace Core.GameplayInterface.UI
             int width = (int)(_cellSize.x + _padding.left + _padding.right);
             _panel.sizeDelta = new Vector2(width, height);
 
-            _batteryChargeCells.Clear();
-            for (int i = _panel.childCount - 1; i >= 0; i--)
-            {
-                DestroyImmediate(_panel.GetChild(i).gameObject);
-            }
+            ClearUI();
 
             for (int i = 0; i < maximumCellCount; i++)
             {
-                GameObject cell = Instantiate(_batteryChargeCellPrefab, _panel);
+                GameObject cell = Instantiate(_batteryChargeCellPrefab, _grid);
                 _batteryChargeCells.Add(cell);
                 cell.name += $"_{i}";
             }
@@ -54,6 +54,8 @@ namespace Core.GameplayInterface.UI
             if (activeCellCount > _batteryChargeCells.Count)
                 PrepareUI(activeCellCount, activeCellCount);
 
+            _chargeCountText.text = activeCellCount.ToString();
+
             for (int i = 0; i < _batteryChargeCells.Count; i++)
             {
                 if (i < activeCellCount)
@@ -61,6 +63,32 @@ namespace Core.GameplayInterface.UI
                 else
                     _batteryChargeCells[i].SetActive(false);
             }
+        }
+        [EasyButtons.Button]
+        public void ClearUI()
+        {
+            if(_batteryChargeCells.Count > 0 )
+                _batteryChargeCells.Clear();
+
+            for (int i = _grid.childCount - 1; i >= 0; i--)
+            {
+                DestroyImmediate(_grid.GetChild(i).gameObject);
+            }
+        }
+
+        public bool IsOpen()
+        {
+            return _panel.gameObject.activeSelf;
+        }
+
+        public void Show()
+        {
+            _panel.gameObject.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            _panel.gameObject.SetActive(false);
         }
     }
 }

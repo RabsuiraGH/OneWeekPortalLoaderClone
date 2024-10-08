@@ -1,4 +1,3 @@
-using System;
 using Core.GameEventSystem;
 using Core.GameEventSystem.Signals;
 using Core.GameplayInterface.UI;
@@ -24,6 +23,9 @@ namespace Core.GameplayInterface.Controller
         {
             _canvas.worldCamera = Camera.main;
 
+            _panel.Hide();
+            _panel.ClearUI();
+
             _eventBus.Subscribe<BatteryInfoSignal>(PrepareUI);
             _eventBus.Subscribe<BatteryChargeChangedSignal>(UpdateUI);
         }
@@ -35,6 +37,7 @@ namespace Core.GameplayInterface.Controller
 
         private void PrepareUI(BatteryInfoSignal signal)
         {
+            _panel.Show();
             _panel.PrepareUI(signal.BatteryMaxCharge, signal.BatteryCharge);
         }
 
