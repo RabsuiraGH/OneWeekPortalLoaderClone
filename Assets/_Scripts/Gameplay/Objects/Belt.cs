@@ -1,4 +1,6 @@
+using Core.CustomAnimationSystem;
 using Core.GameEventSystem;
+using Core.Utility;
 using UnityEngine;
 using Zenject;
 
@@ -12,10 +14,9 @@ namespace Core
 
         [SerializeField] private Collider2D _collider;
 
-        [SerializeField] private Animator _animator;
+        [SerializeField] private CustomAnimator _animator;
 
-        private static readonly int HorizontalHash = Animator.StringToHash("Horizontal");
-        private static readonly int VerticalHash = Animator.StringToHash("Vertical");
+        [SerializeField] private BeltMovementAnimation _movementAnimation = new();
 
         [Inject]
         public void Construct(EventBus eventBus)
@@ -26,10 +27,10 @@ namespace Core
         private void Awake()
         {
             _collider = GetComponent<Collider2D>();
-            _animator = GetComponent<Animator>();
+            _animator = GetComponent<CustomAnimator>();
 
-            _animator.SetInteger(HorizontalHash, _direction.x);
-            _animator.SetInteger(VerticalHash, _direction.y);
+            _movementAnimation.SetTags(_direction.GetDirection().ToString());
+            _animator.PlayAnimation(_movementAnimation);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

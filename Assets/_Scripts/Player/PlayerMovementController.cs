@@ -2,28 +2,31 @@ using System.Threading;
 using System.Threading.Tasks;
 using Core.GameEventSystem;
 using Core.GameEventSystem.Signals;
+using Core.Utility;
 using Core.Utility.DebugTool;
 using UnityEngine;
 using Zenject;
 
 namespace Core.Player.Movement
 {
-    public class PlayerMovementController : MonoBehaviour, IMoveable
+    public class PlayerMovementController : MonoBehaviour, IPerformMovement
     {
         [SerializeField] private float _moveTime = 0.5f;
 
         [SerializeField] private Rigidbody2D _rigidBody = null;
 
-        [SerializeField] private bool _isMoving = false;
+        [field: SerializeField] public bool IsMoving { get; private set; } = false;
+
+        [field: SerializeField] public Directions.Direction FaceDirection { get; private set; }
 
         [SerializeField] private DebugLogger _debuger = new();
-
-        [SerializeField] private EventBus _eventBus;
 
         [SerializeField] private LayerMask _wallLayer;
 
         private CancellationTokenSource _cancellationTokenSource;
         private Task _currentMoveTask;
+
+        [SerializeField] private EventBus _eventBus;
 
         [Inject]
         public void Construct(EventBus eventBus)
@@ -31,43 +34,39 @@ namespace Core.Player.Movement
             _eventBus = eventBus;
         }
 
-        public void Move(Vector2 direction)
+        private void Awake()
         {
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            _rigidBody = GetComponent<Rigidbody2D>();
+
+            _eventBus.Subscribe<BeltMovementSignal>(BeltMovement);
+            _eventBus.Subscribe<PortalTeleportSignal>(PortalMovement);
+        }
+
+        public async void InputMove(Vector2 direction)
+        {
+            if (!CanPerformMovement(direction)) return;
+
             PerformMovement(direction, true);
-        }
 
-        public void MoveWithoutConsequences(Vector2 direction)
-        {
-            PerformMovement(direction, false);
-        }
+            _eventBus.Invoke(new PlayerInputMoveStartSignal());
 
-        private async void PerformMovement(Vector2 direction, bool consequences)
-        {
-            if (_isMoving)
-                return;
-
-            if (!IsLegalMove(direction))
-                return;
-
-            _debuger.Log(this, "Movement performed");
-            if (consequences)
-                _eventBus.Invoke(new PlayerMoveStartSignal());
-
-            _isMoving = true;
-            _currentMoveTask = MoveOverTimeAsync(_rigidBody.position, _rigidBody.position + direction, _moveTime, _cancellationTokenSource);
             await _currentMoveTask;
-            _isMoving = false;
-            if (consequences)
-                _eventBus.Invoke(new PlayerMoveEndSignal());
+
+            _eventBus.Invoke(new PlayerInputMoveEndSignal());
         }
 
-        private async void PlannedMovement(Vector2 direction, bool consequences)
+        public void ThirdPartyMove(Vector2 direction, bool changeFaceDirection)
         {
-            if (_isMoving)
-            {
-                await _currentMoveTask;
-            }
-            PerformMovement(direction, consequences);
+            if (!CanPerformMovement(direction)) return;
+
+            PerformMovement(direction, changeFaceDirection);
+        }
+
+        public bool CanPerformMovement(Vector2 direction)
+        {
+            return !IsMoving && IsLegalMove(direction);
         }
 
         public bool IsLegalMove(Vector2 direction)
@@ -80,7 +79,29 @@ namespace Core.Player.Movement
             return collider == null;
         }
 
-        private async Task MoveOverTimeAsync(Vector3 from, Vector3 to, float duration, CancellationTokenSource token)
+        public async void PlannedMovement(Vector2 direction, bool changeFaceDirection)
+        {
+            if (IsMoving)
+            {
+                await _currentMoveTask;
+            }
+            PerformMovement(direction, changeFaceDirection);
+        }
+
+        private async void PerformMovement(Vector2 direction, bool changeFaceDirection)
+        {
+            _debuger.Log(this, "Movement performed");
+
+            if (changeFaceDirection)
+                FaceDirection = direction.GetDirection();
+
+            IsMoving = true;
+            _currentMoveTask = Move(_rigidBody.position, _rigidBody.position + direction, _moveTime, _cancellationTokenSource);
+            await _currentMoveTask;
+            IsMoving = false;
+        }
+
+        private async Task Move(Vector3 from, Vector3 to, float duration, CancellationTokenSource token)
         {
             from = Vector3Int.RoundToInt(from);
             to = Vector3Int.RoundToInt(to);
@@ -100,21 +121,13 @@ namespace Core.Player.Movement
             transform.position = to;
         }
 
-        private void Awake()
-        {
-            _cancellationTokenSource = new CancellationTokenSource();
-            _rigidBody = GetComponent<Rigidbody2D>();
-            _eventBus.Subscribe<BeltMovementSignal>(BeltMovement);
-            _eventBus.Subscribe<PortalTeleportSignal>(PortalMovement);
-        }
-
         private async void PortalMovement(PortalTeleportSignal signal)
         {
             _rigidBody.position = signal.TeleportPosition;
 
             if (signal.MovementDirection == Vector2Int.zero) return;
 
-            PlannedMovement(signal.MovementDirection, false);
+            PlannedMovement(signal.MovementDirection, true);
 
             await _currentMoveTask;
 
@@ -123,7 +136,7 @@ namespace Core.Player.Movement
 
         private void BeltMovement(BeltMovementSignal signal)
         {
-            _isMoving = signal.IsMoving;
+            IsMoving = signal.IsMoving;
             if (signal.MovementDirection == Vector2Int.zero) return;
 
             PlannedMovement(signal.MovementDirection, false);

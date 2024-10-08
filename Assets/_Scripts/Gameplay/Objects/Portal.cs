@@ -28,7 +28,7 @@ namespace Core
         private void Awake()
         {
             _collider = GetComponent<Collider2D>();
-            _eventBus.Subscribe<PlayerMoveEndSignal>(Teleport);
+            _eventBus.Subscribe<PlayerEndMovementSignal>(Teleport);
             _eventBus.Subscribe<PortalTeleportEndSignal>(ResetTeleport);
         }
 
@@ -52,11 +52,11 @@ namespace Core
 
         private void OnDestroy()
         {
-            _eventBus.Unsubscribe<PlayerMoveEndSignal>(Teleport);
+            _eventBus.Unsubscribe<PlayerEndMovementSignal>(Teleport);
             _eventBus.Unsubscribe<PortalTeleportEndSignal>(ResetTeleport);
         }
 
-        private void Teleport(PlayerMoveEndSignal signal)
+        private void Teleport(PlayerEndMovementSignal signal)
         {
             if (!_requireTeleport) return;
             _sibling.TreatSiblingAsExit();
