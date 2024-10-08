@@ -66,7 +66,7 @@ namespace Core.Player.Movement
 
         public bool CanPerformMovement(Vector2 direction)
         {
-            return !IsMoving || IsLegalMove(direction);
+            return !IsMoving && IsLegalMove(direction);
         }
 
         public bool IsLegalMove(Vector2 direction)
