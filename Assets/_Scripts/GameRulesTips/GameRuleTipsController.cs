@@ -8,7 +8,6 @@ namespace Core
 {
     public class GameRuleTipsController : MonoBehaviour
     {
-
         [SerializeField] private GameObject _parent = null;
 
         [SerializeField] private GameRuleTipsPageUI _page = null;
@@ -32,10 +31,17 @@ namespace Core
             _page.OnChargePageClosedButtonPressed += CloseChargePanel;
 
             _eventBus.Subscribe<BatteryLiftSignal>(ShowChargeTip);
+            _eventBus.Subscribe<LevelLoadCompletedSignal>(ShowRules);
         }
 
-        private void Start()
+        private void ShowRules(LevelLoadCompletedSignal signal)
         {
+            if (!signal.FirstLoad)
+            {
+                RemoveRules();
+                return;
+            }
+
             _page.ToggleControlPanel(true);
             _eventBus.Invoke(new OpenCompletelyUISignal());
         }
@@ -62,7 +68,7 @@ namespace Core
             _page.ToggleChargePanel(false);
             _eventBus.Invoke(new CloseCompletelyUISignal());
 
-            Destroy(_parent);
+            RemoveRules();
         }
 
         private void ShowChargeTip(BatteryLiftSignal signal)
@@ -71,12 +77,19 @@ namespace Core
             _eventBus.Invoke(new OpenCompletelyUISignal());
         }
 
+        private void RemoveRules()
+        {
+            Destroy(_parent);
+        }
+
         private void OnDestroy()
         {
             _page.OnControlPageCloseButtonPressed -= CloseControlPanel;
             _page.OnGoalPageClosedButtonPressed -= CloseGoalPanel;
             _page.OnChargePageClosedButtonPressed -= CloseChargePanel;
             _eventBus.Unsubscribe<BatteryLiftSignal>(ShowChargeTip);
+            _eventBus.Unsubscribe<LevelLoadCompletedSignal>(ShowRules);
+
         }
     }
 }
