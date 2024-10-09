@@ -18,3 +18,8 @@ MonoBehaviour:
     <LevelScene>k__BackingField:
       m_SceneAsset: {fileID: 102900000, guid: 8010b87f652a8a7409fe85b0a5d8a623, type: 3}
       m_SceneName: Level1
+  - _levelDevName: Second level
+    <LevelName>k__BackingField: 2
+    <LevelScene>k__BackingField:
+      m_SceneAsset: {fileID: 102900000, guid: dc331823f7737624990d21f077879832, type: 3}
+      m_SceneName: Level2
