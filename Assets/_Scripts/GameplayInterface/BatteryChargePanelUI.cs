@@ -64,10 +64,11 @@ namespace Core.GameplayInterface.UI
                     _batteryChargeCells[i].SetActive(false);
             }
         }
+
         [EasyButtons.Button]
         public void ClearUI()
         {
-            if(_batteryChargeCells.Count > 0 )
+            if (_batteryChargeCells.Count > 0)
                 _batteryChargeCells.Clear();
 
             for (int i = _grid.childCount - 1; i >= 0; i--)

@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using Zenject;
 
-namespace Core
+namespace Core.Gameplay.Object
 {
     public class Accumulator : MonoBehaviour
     {

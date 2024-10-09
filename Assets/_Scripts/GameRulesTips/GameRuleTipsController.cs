@@ -1,10 +1,11 @@
 using System.Threading.Tasks;
 using Core.GameEventSystem;
 using Core.GameEventSystem.Signals;
+using Core.GameRuleTips.UI;
 using UnityEngine;
 using Zenject;
 
-namespace Core
+namespace Core.GameRuleTips.Controller
 {
     public class GameRuleTipsController : MonoBehaviour
     {

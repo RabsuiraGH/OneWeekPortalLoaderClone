@@ -8,7 +8,7 @@ using Zenject;
 
 using static Core.Utility.DebugTool.DebugColorOptions.HtmlColor;
 
-namespace Core.UI.GlobalController
+namespace Core.Input.GlobalController
 {
     public class GlobalInputController : MonoBehaviour
     {

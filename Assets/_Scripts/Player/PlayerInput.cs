@@ -16,7 +16,7 @@ namespace Core.Input.Player
 
         [SerializeField] private bool _isHoldingMovement = false;
 
-        [SerializeField] private float _repeatRate = 0.75f;
+        [SerializeField] private float _repeatRate = 0.65f;
 
         private CancellationTokenSource _cancellationTokenSource = null;
 
@@ -41,7 +41,7 @@ namespace Core.Input.Player
             _cancellationTokenSource = new CancellationTokenSource();
 
             _isHoldingMovement = true;
-            HoldMovementAsync(context, _cancellationTokenSource); // Запуск асинхронного метода
+            HoldMovementAsync(context, _cancellationTokenSource);
         }
 
         private void OnMovementCanceled(InputAction.CallbackContext context)

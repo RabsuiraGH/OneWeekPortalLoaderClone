@@ -1,4 +1,4 @@
-namespace Core.GameEventSystem
+namespace Core.GameEventSystem.Signals
 {
     public class EscapeCommandSignal
     {

@@ -1,11 +1,10 @@
 using Core.GameEventSystem;
 using Core.GameEventSystem.Signals;
-using Core.MainMenu.UI;
 using Core.Utility.DebugTool;
 using UnityEngine;
 using Zenject;
 
-namespace Core
+namespace Core.Gameplay
 {
     public class BatteryChargeController : MonoBehaviour
     {
@@ -32,6 +31,7 @@ namespace Core
         private void Awake()
         {
             _batteryCharges = _maximumBatteryCharges;
+
             _eventBus.Subscribe<BatteryLiftSignal>(OnBatteryLift);
             _eventBus.Subscribe<LevelCompletedSignal>(LockFailure);
             _eventBus.Subscribe<AccumulatorLiftSignal>(ChargeBattery);

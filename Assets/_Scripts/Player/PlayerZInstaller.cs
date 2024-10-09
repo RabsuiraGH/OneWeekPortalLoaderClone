@@ -6,7 +6,7 @@ namespace Core.Player
 {
     public class PlayerZInstaller : MonoInstaller
     {
-        [SerializeField] private PlayerMovementController _player;
+        [SerializeField] private PlayerMovementController _player = null;
 
         public override void InstallBindings()
         {

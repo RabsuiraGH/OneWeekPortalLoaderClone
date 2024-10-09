@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Core
+namespace Core.GameEventSystem.Signals
 {
     public class BeltMovementSignal
     {

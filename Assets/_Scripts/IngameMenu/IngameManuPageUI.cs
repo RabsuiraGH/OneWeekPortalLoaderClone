@@ -6,11 +6,11 @@ namespace Core.IngameMenu.UI
 {
     public class IngameManuPageUI : MonoBehaviour
     {
-        [SerializeField] private RectTransform _page;
+        [SerializeField] private RectTransform _page = null;
 
-        [SerializeField] private Button _continueButton;
-        [SerializeField] private Button _restartButton;
-        [SerializeField] private Button _backToStartMenuButton;
+        [SerializeField] private Button _continueButton = null;
+        [SerializeField] private Button _restartButton = null;
+        [SerializeField] private Button _backToStartMenuButton = null;
 
         public event Action OnContinueButtonClicked;
 

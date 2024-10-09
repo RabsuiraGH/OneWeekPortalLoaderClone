@@ -3,7 +3,7 @@ using Core.GameEventSystem.Signals;
 using UnityEngine;
 using Zenject;
 
-namespace Core
+namespace Core.Gameplay.Object
 {
     public class BatteryHolder : MonoBehaviour
     {
@@ -44,7 +44,6 @@ namespace Core
         private void OnDestroy()
         {
             _eventBus.Unsubscribe<BatteryLiftSignal>(OnBatteryLifted);
-
         }
     }
 }

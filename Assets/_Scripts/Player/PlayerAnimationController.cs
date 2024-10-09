@@ -3,13 +3,11 @@ using Core.Player.Movement;
 using UnityEngine;
 using Zenject;
 
-namespace Core
+namespace Core.Player.Animation
 {
     public class PlayerAnimationController : CustomAnimator
     {
-
-        [SerializeField] private IPerformMovement _player;
-
+        [SerializeField] private IPerformMovement _player = null;
 
         [SerializeField] private PlayerIdleAnimation _idleAnimation = new();
 
@@ -20,8 +18,5 @@ namespace Core
         {
             _player = player;
         }
-
-
-
     }
 }

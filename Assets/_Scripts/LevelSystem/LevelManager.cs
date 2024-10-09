@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.GameEventSystem;
 using Core.GameEventSystem.Signals;
-using SceneFieldTools;
+using Core.Level.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -62,7 +62,7 @@ namespace Core.Level
 
         private void ResetLevel(LevelResetSignal signal)
         {
-            LoadLevel(_currentLevel,false);
+            LoadLevel(_currentLevel, false);
         }
 
         private void LoadLevel(LevelLoadSignal signal)

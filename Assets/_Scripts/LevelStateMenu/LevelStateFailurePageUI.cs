@@ -6,10 +6,10 @@ namespace Core.LevelStateMenu.UI
 {
     public class LevelStateFailurePageUI : MonoBehaviour
     {
-        [SerializeField] private RectTransform _page;
+        [SerializeField] private RectTransform _page = null;
 
-        [SerializeField] private Button _restartLevelButton;
-        [SerializeField] private Button _backToStartMenuButton;
+        [SerializeField] private Button _restartLevelButton = null;
+        [SerializeField] private Button _backToStartMenuButton = null;
 
         public event Action OnRestartLevelButtonClicked;
 
@@ -42,6 +42,7 @@ namespace Core.LevelStateMenu.UI
         {
             _restartLevelButton.Select();
         }
+
         private void OnDestroy()
         {
             _restartLevelButton.onClick.RemoveAllListeners();

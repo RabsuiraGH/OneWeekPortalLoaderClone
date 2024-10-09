@@ -4,7 +4,7 @@ using Core.Utility.DebugTool;
 using UnityEngine;
 using Zenject;
 
-namespace Core
+namespace Core.UI.GlobalController
 {
     public class GlobalUIInput : MonoBehaviour
     {

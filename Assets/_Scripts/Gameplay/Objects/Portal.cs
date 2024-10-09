@@ -3,21 +3,21 @@ using Core.GameEventSystem.Signals;
 using UnityEngine;
 using Zenject;
 
-namespace Core
+namespace Core.Gameplay.Object
 {
     public class Portal : MonoBehaviour
     {
-        [SerializeField] private Collider2D _collider;
+        [SerializeField] private Collider2D _collider = null;
 
-        [SerializeField] private EventBus _eventBus;
+        [SerializeField] private EventBus _eventBus = null;
 
-        [SerializeField] private Portal _sibling;
+        [SerializeField] private Portal _sibling = null;
 
-        [field: SerializeField] public Vector2Int ExitDirection { get; private set; }
+        [field: SerializeField] public Vector2Int ExitDirection { get; private set; } = Vector2Int.zero;
 
-        [SerializeField] private bool _requireTeleport;
+        [SerializeField] private bool _requireTeleport = false;
 
-        [SerializeField] private Collider2D _objectToTeleport;
+        [SerializeField] private Collider2D _objectToTeleport = null;
 
         [Inject]
         public void Construct(EventBus eventBus)
@@ -59,16 +59,20 @@ namespace Core
         private void Teleport(PlayerEndMovementSignal signal)
         {
             if (!_requireTeleport) return;
+
             _sibling.TreatSiblingAsExit();
+
             _eventBus.Invoke(new PortalTeleportSignal(true, _sibling.ExitDirection, Vector2Int.RoundToInt(_sibling.transform.position)));
+
             _requireTeleport = false;
             _objectToTeleport = null;
         }
-
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             Gizmos.DrawLine(transform.position, transform.position + (Vector3)(Vector2)ExitDirection * 0.5f);
             Gizmos.DrawWireSphere(transform.position, 0.25f);
         }
+#endif
     }
 }

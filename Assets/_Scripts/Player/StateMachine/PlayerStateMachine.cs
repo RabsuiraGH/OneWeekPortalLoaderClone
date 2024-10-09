@@ -6,7 +6,7 @@ namespace Core.Player.StateMachine
     [Serializable]
     public class PlayerStateMachine
     {
-        [field: SerializeField] public PlayerState CurrentState { get; set; }
+        [field: SerializeField] public PlayerState CurrentState { get; set; } = null;
 
         public void Initialize(PlayerState startingState)
         {

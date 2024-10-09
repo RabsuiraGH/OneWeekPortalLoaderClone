@@ -8,10 +8,10 @@ namespace Core.GameplayInterface.Controller
 {
     public class BatteryChargePanelController : MonoBehaviour
     {
-        [SerializeField] private Canvas _canvas;
-        [SerializeField] private BatteryChargePanelUI _panel;
+        [SerializeField] private Canvas _canvas = null;
+        [SerializeField] private BatteryChargePanelUI _panel = null;
 
-        [SerializeField] private EventBus _eventBus;
+        [SerializeField] private EventBus _eventBus = null;
 
         [Inject]
         public void Construct(EventBus eventBus)

@@ -7,9 +7,9 @@ namespace Core.Player.StateMachine
 {
     public class PlayerState
     {
-        [SerializeField] protected PlayerMain _player;
-        [SerializeField] protected PlayerStateMachine _playerStateMachine;
-        [SerializeField] protected EventBus _eventBus;
+        [SerializeField] protected PlayerMain _player = null;
+        [SerializeField] protected PlayerStateMachine _playerStateMachine = null;
+        [SerializeField] protected EventBus _eventBus = null;
 
         public PlayerState(PlayerMain player, PlayerStateMachine playerStateMachine, EventBus eventBus)
         {

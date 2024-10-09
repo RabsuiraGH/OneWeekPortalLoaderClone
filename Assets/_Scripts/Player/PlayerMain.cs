@@ -11,13 +11,13 @@ namespace Core.Player
     {
         [field: SerializeField] private PlayerMovementController _movementController = null;
 
-        [SerializeField] private PlayerStateMachine _stateMachine;
+        [SerializeField] private PlayerStateMachine _stateMachine = null;
 
-        [field: SerializeField] public PlayerIdleState IdleState;
+        [field: SerializeField] public PlayerIdleState IdleState = null;
 
-        [field: SerializeField] public PlayerMovementState MovementState;
+        [field: SerializeField] public PlayerMovementState MovementState = null;
 
-        [field: SerializeField] public CustomAnimator Animator { get; set; }
+        [field: SerializeField] public CustomAnimator Animator { get; set; } = null;
 
         [SerializeField] private EventBus _eventBus;
 

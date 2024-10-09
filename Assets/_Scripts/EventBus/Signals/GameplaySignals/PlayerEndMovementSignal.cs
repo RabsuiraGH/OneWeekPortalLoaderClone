@@ -4,11 +4,11 @@ namespace Core.GameEventSystem.Signals
 {
     public class PlayerEndMovementSignal
     {
-        public readonly Directions.Direction movementDirection;
+        public readonly Directions.Direction MovementDirection;
 
         public PlayerEndMovementSignal(Directions.Direction movementDirection)
         {
-            this.movementDirection = movementDirection;
+            MovementDirection = movementDirection;
         }
     }
 }

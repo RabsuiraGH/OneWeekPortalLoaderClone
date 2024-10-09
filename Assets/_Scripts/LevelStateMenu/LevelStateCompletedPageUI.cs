@@ -6,10 +6,10 @@ namespace Core.LevelStateMenu.UI
 {
     public class LevelStateCompletedPageUI : MonoBehaviour
     {
-        [SerializeField] private RectTransform _page;
+        [SerializeField] private RectTransform _page = null;
 
-        [SerializeField] private Button _nextLevelButton;
-        [SerializeField] private Button _backToStartMenuButton;
+        [SerializeField] private Button _nextLevelButton = null;
+        [SerializeField] private Button _backToStartMenuButton = null;
 
         public event Action OnNextLevelButtonClicked;
 
@@ -37,6 +37,7 @@ namespace Core.LevelStateMenu.UI
         {
             _page.gameObject.SetActive(false);
         }
+
         public void StartSelection()
         {
             _nextLevelButton.Select();

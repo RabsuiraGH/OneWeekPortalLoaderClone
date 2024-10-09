@@ -1,21 +1,17 @@
 using Core.GameEventSystem.Signals;
 using Core.Player.Movement;
 using Core.Utility;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Core.Player.StateMachine
 {
     public class PlayerMovementState : PlayerState
     {
-
         [SerializeField] private PlayerMovementAnimation _movementAnimation = new();
 
+        [SerializeField] private Directions.Direction _movementDirection;
 
-        [SerializeField] private Directions.Direction  _movementDirection;
-
-        [SerializeField] private IPerformMovement _movementController;
-
+        [SerializeField] private IPerformMovement _movementController = null;
 
         public PlayerMovementState(PlayerMain player, IPerformMovement movementController, PlayerStateMachine playerStateMachine, GameEventSystem.EventBus eventBus) : base(player, playerStateMachine, eventBus)
         {

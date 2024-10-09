@@ -23,10 +23,10 @@ namespace Core.Player.Movement
 
         [SerializeField] private LayerMask _wallLayer;
 
-        private CancellationTokenSource _cancellationTokenSource;
-        private Task _currentMoveTask;
+        private CancellationTokenSource _cancellationTokenSource = null;
+        private Task _currentMoveTask = null;
 
-        [SerializeField] private EventBus _eventBus;
+        [SerializeField] private EventBus _eventBus = null;
 
         [Inject]
         public void Construct(EventBus eventBus)

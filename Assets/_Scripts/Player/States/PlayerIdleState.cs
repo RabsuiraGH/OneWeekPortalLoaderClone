@@ -1,5 +1,4 @@
 using Core.GameEventSystem;
-using Core.GameEventSystem.Signals;
 using Core.Player.Movement;
 using UnityEngine;
 
@@ -9,9 +8,9 @@ namespace Core.Player.StateMachine
     {
         [SerializeField] private PlayerIdleAnimation _idleAnimation = new();
 
-        [SerializeField] private IPerformMovement _movementController;
+        [SerializeField] private IPerformMovement _movementController = null;
 
-        public PlayerIdleState(PlayerMain player,IPerformMovement movementController, PlayerStateMachine playerStateMachine, EventBus eventBus) : base(player, playerStateMachine, eventBus)
+        public PlayerIdleState(PlayerMain player, IPerformMovement movementController, PlayerStateMachine playerStateMachine, EventBus eventBus) : base(player, playerStateMachine, eventBus)
         {
             _movementController = movementController;
         }
@@ -21,8 +20,6 @@ namespace Core.Player.StateMachine
             _idleAnimation.SetTags(_movementController.FaceDirection.ToString());
 
             _player.Animator.PlayAnimation(_idleAnimation);
-
-
         }
 
         public override void ExitState()
@@ -31,7 +28,7 @@ namespace Core.Player.StateMachine
 
         public override void FrameUpdate()
         {
-            if(_movementController.IsMoving)
+            if (_movementController.IsMoving)
             {
                 _playerStateMachine.ChangeState(_player.MovementState);
             }

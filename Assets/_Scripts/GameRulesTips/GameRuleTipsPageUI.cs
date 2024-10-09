@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Core
+namespace Core.GameRuleTips.UI
 {
     public class GameRuleTipsPageUI : MonoBehaviour
     {
@@ -15,14 +15,16 @@ namespace Core
         [SerializeField] private Button _chargeCloseButton = null;
 
         public event Action OnControlPageCloseButtonPressed;
+
         public event Action OnGoalPageClosedButtonPressed;
+
         public event Action OnChargePageClosedButtonPressed;
 
         private void Awake()
         {
             _controlCloseButton.onClick.AddListener(() => OnControlPageCloseButtonPressed?.Invoke());
             _goalCloseButton.onClick.AddListener(() => OnGoalPageClosedButtonPressed?.Invoke());
-            _chargeCloseButton.onClick.AddListener(()=> OnChargePageClosedButtonPressed?.Invoke());
+            _chargeCloseButton.onClick.AddListener(() => OnChargePageClosedButtonPressed?.Invoke());
         }
 
         public void ToggleControlPanel(bool show)

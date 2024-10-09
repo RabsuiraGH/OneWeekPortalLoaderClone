@@ -1,4 +1,4 @@
-namespace Core
+namespace Core.GameEventSystem.Signals
 {
     public class SwitchWidowUISignal
     {

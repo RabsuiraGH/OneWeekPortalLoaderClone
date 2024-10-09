@@ -1,14 +1,14 @@
 using Core.Utility;
-using UnityEngine;
 
 namespace Core.GameEventSystem.Signals
 {
     public class PlayerStartMovementSignal
     {
-        public readonly Directions.Direction movementDirection;
+        public readonly Directions.Direction MovementDirection;
+
         public PlayerStartMovementSignal(Directions.Direction movementDirection)
         {
-            this.movementDirection = movementDirection;
+            this.MovementDirection = movementDirection;
         }
     }
 }
