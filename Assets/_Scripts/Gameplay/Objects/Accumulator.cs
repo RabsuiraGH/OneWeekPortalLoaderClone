@@ -50,11 +50,13 @@ namespace Core
             _eventBus.Unsubscribe<BatteryLiftSignal>(OnBatteryLifted);
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             GUIStyle style = new GUIStyle();
             style.fontSize = 20;
             Handles.Label(transform.position, $"{_charge}", style);
         }
+#endif
     }
 }
