@@ -45,7 +45,7 @@ namespace Core
             _eventBus.Invoke(new CloseCompletelyUISignal());
             _page.ToggleControlPanel(false);
 
-            await Task.Delay(500);
+            await Task.Delay(200);
 
             _page.ToggleGoalPanel(true);
             _eventBus.Invoke(new OpenCompletelyUISignal());
