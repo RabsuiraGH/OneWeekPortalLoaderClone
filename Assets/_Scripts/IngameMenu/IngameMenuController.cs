@@ -27,6 +27,7 @@ namespace Core.IngameMenu.Controller
             _canvas.worldCamera = Camera.main;
 
             _ingameMenuPage.OnContinueButtonClicked += ContinueGame;
+            _ingameMenuPage.OnRestartButtonClicked += RestartLevel;
             _ingameMenuPage.OnBackToStartMenuClicked += BackToStartMenu;
             _eventBus.Subscribe<EscapeCommandSignal>(ToggleMenu);
         }
@@ -41,6 +42,12 @@ namespace Core.IngameMenu.Controller
         {
             _eventBus.Invoke(new CloseCompletelyUISignal());
             _ingameMenuPage.HideMenu();
+        }
+
+        private void RestartLevel()
+        {
+            _eventBus.Invoke(new CloseCompletelyUISignal());
+            _eventBus.Invoke(new LevelResetSignal());
         }
 
         private void BackToStartMenu()
