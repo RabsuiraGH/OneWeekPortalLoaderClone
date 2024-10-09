@@ -13,7 +13,10 @@ namespace Core.Level
             if(index >= _levels.Count || index < 0) return null;
             return _levels[index];
         }
-
+        public int GetLevelIndex(LevelData level)
+        {
+            return _levels.IndexOf(level);
+        }
         public List<LevelData> GetLevelList()
         {
             return new List<LevelData>(_levels);

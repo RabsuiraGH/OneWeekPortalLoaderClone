@@ -62,7 +62,7 @@ namespace Core.Level
 
         private void ResetLevel(LevelResetSignal signal)
         {
-            LoadLevel(_currentLevel);
+            LoadLevel(_currentLevel,false);
         }
 
         private void LoadLevel(LevelLoadSignal signal)
@@ -77,16 +77,20 @@ namespace Core.Level
 
         private void LoadLevel(int levelIndex)
         {
-            LoadLevel(_levelsData.GetLevelAt(levelIndex));
+            LoadLevel(_levelsData.GetLevelAt(levelIndex), true);
         }
 
-        private async void LoadLevel(LevelData level)
+        private async void LoadLevel(LevelData level, bool firstLoad)
         {
             _currentLevel = level;
             await LoadSceneAsync(level.LevelScene);
             GameObject.Instantiate(_ingameMenu);
             GameObject.Instantiate(_levelCompletedMenu);
             GameObject.Instantiate(_gameplayInterface);
+
+            await Task.Delay(100);
+
+            _eventBus.Invoke(new LevelLoadCompletedSignal(_levelsData.GetLevelIndex(level), firstLoad));
         }
 
         private async Task LoadSceneAsync(string sceneName)
