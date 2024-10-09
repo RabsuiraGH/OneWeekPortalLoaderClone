@@ -13,13 +13,53 @@ MonoBehaviour:
   m_Name: LevelsDataSO
   m_EditorClassIdentifier: 
   _levels:
-  - _levelDevName: First test level
+  - _levelDevName: 1 learning level
     <LevelName>k__BackingField: 1
     <LevelScene>k__BackingField:
-      m_SceneAsset: {fileID: 102900000, guid: 8010b87f652a8a7409fe85b0a5d8a623, type: 3}
-      m_SceneName: Level1
-  - _levelDevName: Second level
+      m_SceneAsset: {fileID: 102900000, guid: 344704dd3a71511488d071c3dc2e8f90, type: 3}
+      m_SceneName: Level_1
+  - _levelDevName: 2 learning level
     <LevelName>k__BackingField: 2
     <LevelScene>k__BackingField:
-      m_SceneAsset: {fileID: 102900000, guid: dc331823f7737624990d21f077879832, type: 3}
-      m_SceneName: Level2
+      m_SceneAsset: {fileID: 102900000, guid: 65f5fd624b52d81488d4bfc90bd17c5d, type: 3}
+      m_SceneName: Level_2
+  - _levelDevName: 3 learning level
+    <LevelName>k__BackingField: 3
+    <LevelScene>k__BackingField:
+      m_SceneAsset: {fileID: 102900000, guid: b13b5e24f6ca574418b712659a2832d5, type: 3}
+      m_SceneName: Level_3
+  - _levelDevName: 4 learning level
+    <LevelName>k__BackingField: 4
+    <LevelScene>k__BackingField:
+      m_SceneAsset: {fileID: 102900000, guid: 4806cc06809f0d244879683ca5bd3288, type: 3}
+      m_SceneName: Level_4
+  - _levelDevName: 5 learning level
+    <LevelName>k__BackingField: 5
+    <LevelScene>k__BackingField:
+      m_SceneAsset: {fileID: 102900000, guid: fad2eaa2aca22ca43b5b4e837cee4396, type: 3}
+      m_SceneName: Level_5
+  - _levelDevName: 6 learning level
+    <LevelName>k__BackingField: 6
+    <LevelScene>k__BackingField:
+      m_SceneAsset: {fileID: 102900000, guid: 361052255af6d9949836489327bd9749, type: 3}
+      m_SceneName: Level_6
+  - _levelDevName: 7 learning level
+    <LevelName>k__BackingField: 7
+    <LevelScene>k__BackingField:
+      m_SceneAsset: {fileID: 102900000, guid: bcc06ef7f1bedf9469fc2b4e9fafbdff, type: 3}
+      m_SceneName: Level_7
+  - _levelDevName: 8 learning level
+    <LevelName>k__BackingField: 8
+    <LevelScene>k__BackingField:
+      m_SceneAsset: {fileID: 102900000, guid: 18fc252a0a272084ab102fc00028e01f, type: 3}
+      m_SceneName: Level_8
+  - _levelDevName: 9 level
+    <LevelName>k__BackingField: 9
+    <LevelScene>k__BackingField:
+      m_SceneAsset: {fileID: 102900000, guid: 8010b87f652a8a7409fe85b0a5d8a623, type: 3}
+      m_SceneName: Level_9
+  - _levelDevName: 10  level
+    <LevelName>k__BackingField: 10
+    <LevelScene>k__BackingField:
+      m_SceneAsset: {fileID: 102900000, guid: e15d2eb387284d148b62faa9ff9e0e33, type: 3}
+      m_SceneName: Level_10
