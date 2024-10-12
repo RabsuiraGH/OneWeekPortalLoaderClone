@@ -99,6 +99,12 @@ namespace Core.MainMenu.Controller
 
         private void OnDestroy()
         {
+            _startMenuPage.OnStartButtonClicked -= SwitchToLevelSelectionMenu;
+            _startMenuPage.OnExitButtonClicked-= ExitGame;
+
+            _levelSelectionMenuPage.OnExitButtonClicked -= SwitchToStartMenu;
+            _levelSelectionMenuPage.OnLevelSelected -= StartLevel;
+
             _eventBus.Unsubscribe<EscapeCommandSignal>(EscapeButtonLogic);
         }
     }
