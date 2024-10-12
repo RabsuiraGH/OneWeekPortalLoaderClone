@@ -1,3 +1,4 @@
+using Core.CustomAnimationSystem;
 using Core.GameEventSystem;
 using Core.GameEventSystem.Signals;
 using UnityEngine;
@@ -19,6 +20,14 @@ namespace Core.Gameplay.Object
 
         [SerializeField] private Collider2D _objectToTeleport = null;
 
+        [SerializeField] private CustomAnimator _animator = null;
+
+        [SerializeField] private PortalIdleAnimation _idleAnimation = new();
+
+        [SerializeField] private SpriteMask _mask = null;
+
+        [SerializeField] private Vector3 _maskOffset = new Vector3(0, 0.25f, 0);
+
         [Inject]
         public void Construct(EventBus eventBus)
         {
@@ -27,9 +36,35 @@ namespace Core.Gameplay.Object
 
         private void Awake()
         {
+            _animator = GetComponent<CustomAnimator>();
             _collider = GetComponent<Collider2D>();
+            _mask = GetComponentInChildren<SpriteMask>();
+
             _eventBus.Subscribe<PlayerEndMovementSignal>(Teleport);
             _eventBus.Subscribe<PortalTeleportEndSignal>(ResetTeleport);
+
+            PreparePortal();
+        }
+
+        private void Start()
+        {
+            _animator.PlayAnimation(_idleAnimation);
+        }
+
+        private void PreparePortal()
+        {
+            Vector2Int oppositeDirection = new(0, -1);
+
+            float angle = Vector2.Angle(oppositeDirection, ExitDirection);
+
+            transform.eulerAngles = new(0, 0, angle);
+
+            if (angle == 0)
+            {
+                _idleAnimation.SetTags("Front");
+                _mask.transform.localPosition = _maskOffset;
+            }
+            else _idleAnimation.SetTags("Side");
         }
 
         private void ResetTeleport(PortalTeleportEndSignal signal)
@@ -67,12 +102,15 @@ namespace Core.Gameplay.Object
             _requireTeleport = false;
             _objectToTeleport = null;
         }
+
 #if UNITY_EDITOR
+
         private void OnDrawGizmos()
         {
             Gizmos.DrawLine(transform.position, transform.position + (Vector3)(Vector2)ExitDirection * 0.5f);
             Gizmos.DrawWireSphere(transform.position, 0.25f);
         }
+
 #endif
     }
 }

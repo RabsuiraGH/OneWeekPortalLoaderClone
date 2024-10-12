@@ -22,6 +22,7 @@ namespace Core.Player.Movement
         [SerializeField] private DebugLogger _debuger = new();
 
         [SerializeField] private LayerMask _wallLayer;
+        [SerializeField] private LayerMask _wallObjectLayer;
 
         private CancellationTokenSource _cancellationTokenSource = null;
         private Task _currentMoveTask = null;
@@ -72,11 +73,15 @@ namespace Core.Player.Movement
         public bool IsLegalMove(Vector2 direction)
         {
             Collider2D collider = Physics2D.OverlapCircle(_rigidBody.position + direction, 0.1f, _wallLayer);
+            Collider2D wallObject = Physics2D.OverlapCircle(_rigidBody.position + direction, 0.1f, _wallObjectLayer);
 
-            if (collider != null)
-                _debuger.Log(collider, "Illegal move, wall object: ", collider.gameObject);
+            if (collider != null && wallObject == null)
+                _debuger.Log(collider, "Illegal move, wall: ", collider.gameObject);
 
-            return collider == null;
+            if (wallObject != null)
+                _debuger.Log(collider, "Move inside wall, wall object: ", wallObject.gameObject);
+
+            return collider == null || wallObject != null;
         }
 
         public async void PlannedMovement(Vector2 direction, bool changeFaceDirection)
