@@ -73,7 +73,7 @@ namespace Core.LevelStateMenu.Controller
         private void OpenFailurePage(LevelFailureSignal signal)
         {
             _levelFailurePage.OpenMenu();
-            _eventBus.Invoke(new OpenUISignal(_levelCompletedPage.transform));
+            _eventBus.Invoke(new OpenUISignal(_levelFailurePage.transform));
         }
 
         private void BackToStartMenu()

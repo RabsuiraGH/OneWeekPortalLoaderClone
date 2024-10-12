@@ -45,7 +45,7 @@ namespace Core.UI.GlobalController
         {
             _debugger.Log(this, signal);
 
-            if(signal.UI != null)
+            if (signal.UI != null)
                 _activeUIList.Add(signal.UI);
 
             _eventBus.Invoke(new SwitchToUIInputSignal());
@@ -55,12 +55,10 @@ namespace Core.UI.GlobalController
         {
             _debugger.Log(this, signal);
 
-
             if (_activeUIList.Contains(signal.UI))
             {
                 _activeUIList.Remove(signal.UI);
             }
-
             if (_activeUIList.Count <= 0)
             {
                 _eventBus.Invoke(new SwitchToGameplayInputSignal());
@@ -75,7 +73,6 @@ namespace Core.UI.GlobalController
         private void OnDestroy()
         {
             SceneManager.sceneLoaded -= ClearUI;
-
 
             _eventBus.Unsubscribe<OpenUISignal>(UIOpened);
             _eventBus.Unsubscribe<CloseUISignal>(UIClosed);
