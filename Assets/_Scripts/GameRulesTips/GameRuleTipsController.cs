@@ -44,30 +44,31 @@ namespace Core.GameRuleTips.Controller
             }
 
             _page.ToggleControlPanel(true);
-            _eventBus.Invoke(new OpenCompletelyUISignal());
+            _eventBus.Invoke(new OpenUISignal(_page.ControlPanelUI.transform));
         }
 
         private async void CloseControlPanel()
         {
-            _eventBus.Invoke(new CloseCompletelyUISignal());
+            _eventBus.Invoke(new CloseUISignal(_page.ControlPanelUI.transform));
             _page.ToggleControlPanel(false);
 
             await Task.Delay(200);
 
             _page.ToggleGoalPanel(true);
-            _eventBus.Invoke(new OpenCompletelyUISignal());
+            _eventBus.Invoke(new OpenUISignal(_page.GoalPanelUI.transform));
+
         }
 
         private void CloseGoalPanel()
         {
             _page.ToggleGoalPanel(false);
-            _eventBus.Invoke(new CloseCompletelyUISignal());
+            _eventBus.Invoke(new CloseUISignal(_page.GoalPanelUI.transform));
         }
 
         private void CloseChargePanel()
         {
             _page.ToggleChargePanel(false);
-            _eventBus.Invoke(new CloseCompletelyUISignal());
+            _eventBus.Invoke(new CloseUISignal(_page.ChargePanelUI.transform));
 
             RemoveRules();
         }
@@ -75,7 +76,7 @@ namespace Core.GameRuleTips.Controller
         private void ShowChargeTip(BatteryLiftSignal signal)
         {
             _page.ToggleChargePanel(true);
-            _eventBus.Invoke(new OpenCompletelyUISignal());
+            _eventBus.Invoke(new OpenUISignal(_page.ChargePanelUI.transform));
         }
 
         private void RemoveRules()

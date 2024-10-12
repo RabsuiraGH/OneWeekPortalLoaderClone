@@ -80,7 +80,7 @@ namespace Core.MainMenu.Controller
 
         private void StartLevel(int levelIndex)
         {
-            _eventBus.Invoke(new CloseCompletelyUISignal());
+            _eventBus.Invoke(new CloseUISignal(null));
             _eventBus.Invoke(new LevelLoadSignal(levelIndex));
         }
 
@@ -89,11 +89,10 @@ namespace Core.MainMenu.Controller
             if (_levelSelectionMenuPage.IsOpen())
             {
                 SwitchToStartMenu();
-                _eventBus.Invoke(new SwitchWidowUISignal());
             }
             else if (_startMenuPage.IsOpen())
             {
-                _eventBus.Invoke(new CloseCompletelyUISignal());
+                _eventBus.Invoke(new CloseUISignal(null));
                 ExitGame();
             }
         }

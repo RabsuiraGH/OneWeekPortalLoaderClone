@@ -699,7 +699,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5529081551984419924}
   - component: {fileID: 1984578584609297215}
-  - component: {fileID: 2963758804836201306}
   m_Layer: 5
   m_Name: GameRules
   m_TagString: Untagged
@@ -721,6 +720,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1929259233657865068}
+  - {fileID: 7760885440496204909}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1984578584609297215
@@ -735,31 +735,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34f22a35ab10ef418ef99700b1d477f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlPanelUI: {fileID: 3075612866105776874}
-  _goalPanelUI: {fileID: 2842849256224326855}
-  _chargePanelUI: {fileID: 5220629019994061516}
+  <ControlPanelUI>k__BackingField: {fileID: 3075612866105776874}
+  <GoalPanelUI>k__BackingField: {fileID: 2842849256224326855}
+  <ChargePanelUI>k__BackingField: {fileID: 5220629019994061516}
   _controlCloseButton: {fileID: 8295320004214033733}
   _goalCloseButton: {fileID: 7481861918383226421}
   _chargeCloseButton: {fileID: 7765365280875152853}
---- !u!114 &2963758804836201306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1460272392437082777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be60cb7c929f1e840b0fefcb23fa4def, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _parent: {fileID: 1460272392437082777}
-  _page: {fileID: 1984578584609297215}
-  _canvas: {fileID: 1752537208124777951}
-  _eventBus:
-    _debugger:
-      _enableDebug: 1
-      _defaultFontSize: 12
 --- !u!1 &1510612215537847693
 GameObject:
   m_ObjectHideFlags: 0
@@ -3538,6 +3519,57 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7071659039219734616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7760885440496204909}
+  - component: {fileID: 2341033789057661668}
+  m_Layer: 0
+  m_Name: GameRuleUIController
+  m_TagString: Controller
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7760885440496204909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7071659039219734616}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5529081551984419924}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2341033789057661668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7071659039219734616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be60cb7c929f1e840b0fefcb23fa4def, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parent: {fileID: 1460272392437082777}
+  _page: {fileID: 1984578584609297215}
+  _canvas: {fileID: 1752537208124777951}
+  _eventBus:
+    _debugger:
+      _enableDebug: 1
+      _defaultFontSize: 12
 --- !u!1 &7183751525475378973
 GameObject:
   m_ObjectHideFlags: 0

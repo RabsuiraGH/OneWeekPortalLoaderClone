@@ -40,19 +40,19 @@ namespace Core.IngameMenu.Controller
 
         private void ContinueGame()
         {
-            _eventBus.Invoke(new CloseCompletelyUISignal());
+            _eventBus.Invoke(new CloseUISignal(_ingameMenuPage.transform));
             _ingameMenuPage.HideMenu();
         }
 
         private void RestartLevel()
         {
-            _eventBus.Invoke(new CloseCompletelyUISignal());
+            _eventBus.Invoke(new CloseUISignal(_ingameMenuPage.transform));
             _eventBus.Invoke(new LevelResetSignal());
         }
 
         private void BackToStartMenu()
         {
-            _eventBus.Invoke(new OpenCompletelyUISignal());
+            _eventBus.Invoke(new OpenUISignal(null));
             SceneManager.LoadScene(_mainMenuScene);
         }
 
@@ -61,12 +61,13 @@ namespace Core.IngameMenu.Controller
             if (_ingameMenuPage.IsOpen())
             {
                 _ingameMenuPage.HideMenu();
-                _eventBus.Invoke(new CloseCompletelyUISignal());
+                _eventBus.Invoke(new CloseUISignal(_ingameMenuPage.transform));
             }
             else
             {
                 _ingameMenuPage.OpenMenu();
-                _eventBus.Invoke(new OpenCompletelyUISignal());
+                _eventBus.Invoke(new OpenUISignal(_ingameMenuPage.transform));
+
             }
         }
 

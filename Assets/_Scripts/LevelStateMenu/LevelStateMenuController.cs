@@ -50,7 +50,7 @@ namespace Core.LevelStateMenu.Controller
 
         private void ResetCurrentLevel()
         {
-            _eventBus.Invoke(new CloseCompletelyUISignal());
+            _eventBus.Invoke(new CloseUISignal(_levelFailurePage.transform));
             _levelFailurePage?.HideMenu();
 
             _eventBus.Invoke(new LevelResetSignal());
@@ -58,7 +58,7 @@ namespace Core.LevelStateMenu.Controller
 
         private void StartNextLevel()
         {
-            _eventBus.Invoke(new CloseCompletelyUISignal());
+            _eventBus.Invoke(new CloseUISignal(_levelCompletedPage.transform));
             _levelCompletedPage.HideMenu();
 
             _eventBus.Invoke(new LevelLoadNextSignal());
@@ -67,18 +67,18 @@ namespace Core.LevelStateMenu.Controller
         private void OpenCompletedPage(LevelCompletedSignal signal)
         {
             _levelCompletedPage.OpenMenu();
-            _eventBus.Invoke(new OpenCompletelyUISignal());
+            _eventBus.Invoke(new OpenUISignal(_levelCompletedPage.transform));
         }
 
         private void OpenFailurePage(LevelFailureSignal signal)
         {
             _levelFailurePage.OpenMenu();
-            _eventBus.Invoke(new OpenCompletelyUISignal());
+            _eventBus.Invoke(new OpenUISignal(_levelCompletedPage.transform));
         }
 
         private void BackToStartMenu()
         {
-            _eventBus.Invoke(new OpenCompletelyUISignal());
+            _eventBus.Invoke(new OpenUISignal(null));
             SceneManager.LoadScene(_mainMenuScene);
         }
 
