@@ -64,7 +64,7 @@ namespace GluPen.Libs.UI.Editor
             typeof(LightingDataAsset),
             typeof(Mesh),
             typeof(MonoScript),
-            typeof(PhysicMaterial),
+            typeof(PhysicsMaterial),
             typeof(PhysicsMaterial2D),
             typeof(RenderTexture),
             typeof(Shader),
